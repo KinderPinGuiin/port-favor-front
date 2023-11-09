@@ -34,16 +34,20 @@ export default function useApiMutation<T, U>(
     }).then(res => res.json()),
     {
       onSuccess: (data) => {
-        if (options?.queryKey !== undefined) {
+        if (options?.queryKey != undefined) {
           queryClient.setQueryData(options?.queryKey, data)
         }
-        queryClient.invalidateQueries(options?.invalidateQueries ?? [])
-      }
-    }
+        if (options?.invalidateQueries != undefined) {
+          queryClient.invalidateQueries(options.invalidateQueries)
+        }
+      },
+    },
   ) as UseMutationResult<U, any, any, any>;
 
   // Send the request
-  useEffect(() => mutation.mutate(null), [mutation.mutate]);
+  useEffect(() => {
+    mutation.mutate(null)
+  }, [mutation.mutate]);
 
   // Returns the mutation result
   return { ...mutation }

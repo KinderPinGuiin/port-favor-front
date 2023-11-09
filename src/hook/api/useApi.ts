@@ -31,7 +31,11 @@ export default function useApi<T, U>(
   });
 
   // Send the request and returns the useQuery hook result
-  return useQuery(options?.queryKey ?? endpoint.uri, () => 
-    fetch(finalURI, { headers: options?.headers }).then(res => res.json())
+  return useQuery(
+    options?.queryKey ?? endpoint.uri, 
+    () => fetch(finalURI, { headers: options?.headers }).then(res => res.json()), 
+    {
+      staleTime: options?.staleTime 
+    }
   ) as UseQueryResult<U, any>;
 }

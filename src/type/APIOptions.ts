@@ -16,6 +16,11 @@ type APIOptions = {
    * The queries to invalidate after a mutation (only used by useApiMutation).
    */
   invalidateQueries?: string[],
+
+  /**
+   * The time (in ms) to set the retrieved data in a stale state (only works with useApi).
+   */
+  staleTime?: number,
 }
 
 export default APIOptions;
