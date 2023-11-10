@@ -28,7 +28,7 @@ export default function Home() {
         </Box>
       </TitleContainer>
       <SplashBackgroundContainer>
-        <IllustrationImage src="https://picsum.photos/600" alt="Random test picture" />
+        <IllustrationImage src="https://picsum.photos/600" alt="Random test picture" draggable="false" />
       </SplashBackgroundContainer>
     </HomeWrapper>
   );
