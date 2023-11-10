@@ -1,10 +1,18 @@
 import { Box, Button, styled } from "@mui/material";
 import backgroundPath from "@assets/home/background.svg";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Home component containing the home of the application.
  */
 export default function Home() {
+  const navigate = useNavigate();
+
+  const onLoginButtonClick = useCallback(() => {
+    navigate("/login");
+  }, []);
+
   return (
     <HomeWrapper>
       <TitleContainer>
@@ -14,7 +22,7 @@ export default function Home() {
           <Button variant="contained" style={{ zIndex: "1", width: "45%", marginRight: "5px" }}>
             Accéder
           </Button>
-          <Button variant="outlined" style={{ zIndex: "1", width: "45%" }}>
+          <Button variant="outlined" onClick={onLoginButtonClick} style={{ zIndex: "1", width: "45%" }}>
             Se connecter
           </Button>
         </Box>
