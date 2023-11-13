@@ -9,6 +9,10 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
 
+  const onAccessButtonClick = useCallback(() => {
+    navigate("/portfolio");
+  }, []);
+
   const onLoginButtonClick = useCallback(() => {
     navigate("/login");
   }, []);
@@ -19,10 +23,10 @@ export default function Home() {
         <ApplicationTitle>PortFavor</ApplicationTitle>
         <ApplicationSubtitle>Un portfolio de FOU FURIEUX</ApplicationSubtitle>
         <Box marginTop={5}>
-          <Button variant="contained" style={{ zIndex: "1", width: "45%", marginRight: "5px" }}>
+          <Button variant="contained" onClick={onAccessButtonClick} style={{ zIndex: "1", width: "45%", marginRight: "5px" }}>
             Accéder
           </Button>
-          <Button variant="outlined" onClick={onLoginButtonClick} style={{ zIndex: "1", width: "45%" }}>
+          <Button variant="outlined" color="secondary" onClick={onLoginButtonClick} style={{ zIndex: "1", width: "45%" }}>
             Se connecter
           </Button>
         </Box>
@@ -36,7 +40,7 @@ export default function Home() {
 
 const HomeWrapper = styled("div")(({ theme }) => ({
   position: "relative",
-  backgroundColor: theme.palette.secondary.main,
+  backgroundColor: theme.palette.background.default,
   height: "100vh",
 }));
 

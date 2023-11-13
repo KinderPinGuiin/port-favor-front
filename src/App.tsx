@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "@page/home/Home";
 import Login from "@page/login/Login";
 import { createTheme, ThemeProvider } from "@mui/material";
+import Portfolio from "@page/portfolio/Portfolio";
 
 function App() {
   // Defining all the application routes
@@ -14,6 +15,10 @@ function App() {
     {
       path: "/login",
       element: <Login />
+    },
+    {
+      path: "/portfolio",
+      element: <Portfolio />
     }
   ]);
 
@@ -25,8 +30,11 @@ function App() {
         light: "#223A54",
       },
       secondary: {
-        main: "#FFF6FF",
-        light: "#FFF6FF"
+        main: "#F94F5A",
+        light: "#F94F5A"
+      },
+      background: {
+        default: "#FFF6FF"
       }
     },
   })
