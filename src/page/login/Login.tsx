@@ -3,17 +3,18 @@ import CenterDiv from "@component/CenterDiv/CenterDiv";
 import FormContainer from "@component/FormContainer/FormContainer";
 import SplashBackground from "@component/SplashBackground/SplashBackground";
 import { TextField, Button } from "@mui/material";
-import { useCallback, useRef } from "react";
+import { SyntheticEvent, useCallback, useRef } from "react";
 
 export default function Login() {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const sendLoginRequest = useCallback(() => {
+  const sendLoginRequest = useCallback((e: SyntheticEvent) => {
+    e.preventDefault()
+
     // Call API
     console.log(loginRef.current?.value);
     console.log(passwordRef.current?.value);
-
   }, []);
 
   return (
