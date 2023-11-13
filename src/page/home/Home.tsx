@@ -1,5 +1,5 @@
+import SplashBackground from "@component/SplashBackground/SplashBackground";
 import { Box, Button, styled } from "@mui/material";
-import backgroundPath from "@assets/home/background.svg";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -27,16 +27,13 @@ export default function Home() {
           </Button>
         </Box>
       </TitleContainer>
-      <SplashBackgroundContainer>
-        <IllustrationImage src="https://picsum.photos/600" alt="Random test picture" draggable="false" />
-      </SplashBackgroundContainer>
+      <SplashBackground src="https://picsum.photos/600" alt="Random test picture" />
     </HomeWrapper>
   );
 }
 
-const HomeWrapper = styled("div")(({ theme }) => ({
+const HomeWrapper = styled("div")(() => ({
   position: "relative",
-  backgroundColor: theme.palette.secondary.main,
   height: "100vh",
 }));
 
@@ -62,27 +59,4 @@ const ApplicationSubtitle = styled("h3")(() => ({
   fontSize: "2rem",
   fontWeight: "normal",
   ...commonTitleStyle
-}));
-
-const SplashBackgroundContainer = styled("div")(({ theme }) => ({
-  position: "absolute",
-  top: "0",
-  right: "0",
-  zIndex: "0",
-  display: "flex",
-  justifyContent: "flex-end",
-  alignItems: "center",
-  height: "100%",
-  width: "70%",
-  backgroundColor: theme.palette.primary.main,
-  maskImage: `url(${backgroundPath})`,
-  maskSize: "cover",
-}));
-
-const IllustrationImage = styled("img")(() => ({
-  height: "60%",
-  width: "auto",
-  aspectRatio: "1 / 1", 
-  marginRight: "10%",
-  boxShadow: "0px 5px 15px 5px rgba(0, 0, 0, 0.3)",
 }));
