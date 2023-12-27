@@ -9,12 +9,29 @@
 
 import ElementCarousel from "@component/Carousel/ElementCarousel";
 import CenterDiv from "@component/CenterDiv/CenterDiv";
+import ElementGrid from "@component/ElementGrid/ElementGrid";
 
 export default function Portfolio() {
-  const images = [
+  const carouselImages = [
     { src: "https://picsum.photos/800", alt: "Image 1" },
     { src: "https://picsum.photos/900", alt: "Image 2" },
     { src: "https://picsum.photos/1200", alt: "Image 3" },
+  ];
+
+  const gridImages = [
+    { src: "https://picsum.photos/800", alt: "Image 1" },
+    { src: "https://picsum.photos/800", alt: "Image 2" },
+    { src: "https://picsum.photos/800", alt: "Image 3" },
+    { src: "https://picsum.photos/800", alt: "Image 4" },
+    { src: "https://picsum.photos/800", alt: "Image 5" },
+    { src: "https://picsum.photos/800", alt: "Image 6" },
+    { src: "https://picsum.photos/800", alt: "Image 7" },
+    { src: "https://picsum.photos/800", alt: "Image 8" },
+    { src: "https://picsum.photos/800", alt: "Image 9" },
+    { src: "https://picsum.photos/800", alt: "Image 10" },
+    { src: "https://picsum.photos/800", alt: "Image 11" },
+    { src: "https://picsum.photos/800", alt: "Image 12" },
+    { src: "https://picsum.photos/800", alt: "Image 13" },
   ];
 
   return (
@@ -34,11 +51,22 @@ export default function Portfolio() {
         </h1>
         <CenterDiv sx={{ height: "90vh" }}>
           <ElementCarousel style={{ height: "80%", width: "60%" }}>
-            {images.map((image, i) => (
+            {carouselImages.map((image, i) => (
               <img src={image.src} alt={image.alt} key={i} />
             ))}
           </ElementCarousel>
         </CenterDiv>
+      </section>
+      {/* Element grid section */}
+      <section>
+        <ElementGrid
+          elementStyle={{ width: "20%", aspectRatio: "1/1" }}
+          animate
+        >
+          {gridImages.map((image, i) => (
+            <img src={image.src} alt={image.alt} key={i} />
+          ))}
+        </ElementGrid>
       </section>
     </>
   );

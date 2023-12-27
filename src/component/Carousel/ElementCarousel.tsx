@@ -5,7 +5,7 @@ import { ReactElement } from "react";
 import Carousel from "react-spring-3d-carousel";
 
 /**
- * Contains all the props of a Carousel component.
+ * Contains all the props of an ElementCarousel component.
  */
 export type CarouselProps = {
   /**
@@ -25,7 +25,7 @@ export type CarouselProps = {
 };
 
 /**
- * An image carousel that allows you to slide elements to visualize them.
+ * An element carousel that allows you to slide elements to visualize them.
  */
 export default function ElementCarousel({
   children,
