@@ -15,19 +15,16 @@ function App() {
       element: <NavbarLayout />,
       children: [
         {
-          path: "/logout",
-          element: <Logout />
-        },
-        {
           path: "/",
           element: <Home />
         },
         {
+          path: "/logout",
+          element: <Logout />
+        },
+        {
           element: <MustBeLoggedInRoute />,
           children: [
-            {
-              path: "/blabla"
-            }
           ]
         },
         {
@@ -54,8 +51,11 @@ function App() {
         light: lightPrimaryColor,
       },
       secondary: {
-        main: secondaryColor,
-        light: secondaryColor,
+        main: "#F94F5A",
+        light: "#F94F5A"
+      },
+      background: {
+        default: "#FFF6FF"
       }
     },
     components: {

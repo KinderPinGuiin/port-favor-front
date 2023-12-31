@@ -2,6 +2,7 @@ import SplashBackground from "@component/SplashBackground/SplashBackground";
 import { Box, Button, styled } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@mui/material";
 
 /**
  * Home component containing the home of the application.
@@ -15,7 +16,7 @@ export default function Home() {
   }, []);
 
   const onAccessButtonClick = useCallback(() => {
-    navigate("/blabla");
+    navigate("/portfolio");
   }, []);
 
   const onLoginButtonClick = useCallback(() => {
@@ -50,6 +51,7 @@ export default function Home() {
 
 const HomeWrapper = styled("div")(() => ({
   position: "relative",
+  backgroundColor: useTheme().palette.background.default,
   height: "100vh",
 }));
 
