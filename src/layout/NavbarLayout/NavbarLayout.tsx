@@ -10,16 +10,17 @@ export default function NavbarLayout() {
 
   return (
     <>
+    #TODO regarder pourquoi la barre disparait après un rechargement de page
       {
         location.pathname !== "/" || location.pathname == "/" && localStorage.getItem("token") !== null &&
         <Stack direction="row" spacing={1} justifyContent="center" alignItems="center" sx={{
           position: "fixed", 
-          bottom: 8,
+          bottom: 3,
           height: "50px",
           left: '50%', 
           transform: 'translateX(-50%)', 
           color: theme.palette.primary.light,
-          backgroundColor: theme.palette.secondary.light,
+          backgroundColor: theme.palette.background.default,
           border: "4px solid",
           borderColor: theme.palette.primary.light,
           display: 'flex',
