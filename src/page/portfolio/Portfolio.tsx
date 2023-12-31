@@ -11,12 +11,17 @@ import ElementCarousel from "@component/Carousel/ElementCarousel";
 import CenterDiv from "@component/CenterDiv/CenterDiv";
 import ElementGrid from "@component/ElementGrid/ElementGrid";
 import CenteredModal from "@component/CenteredModal/CenteredModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageCard from "@component/ImageCard/ImageCard";
 
 export default function PublicPortfolio() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(Boolean(localStorage.getItem('token')));
+  }, []);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -34,6 +39,22 @@ export default function PublicPortfolio() {
   ];
 
   const gridImages = [
+    { src: "https://picsum.photos/800", alt: "Image 1" },
+    { src: "https://picsum.photos/800", alt: "Image 2" },
+    { src: "https://picsum.photos/800", alt: "Image 3" },
+    { src: "https://picsum.photos/800", alt: "Image 4" },
+    { src: "https://picsum.photos/800", alt: "Image 5" },
+    { src: "https://picsum.photos/800", alt: "Image 6" },
+    { src: "https://picsum.photos/800", alt: "Image 7" },
+    { src: "https://picsum.photos/800", alt: "Image 8" },
+    { src: "https://picsum.photos/800", alt: "Image 9" },
+    { src: "https://picsum.photos/800", alt: "Image 10" },
+    { src: "https://picsum.photos/800", alt: "Image 11" },
+    { src: "https://picsum.photos/800", alt: "Image 12" },
+    { src: "https://picsum.photos/800", alt: "Image 13" },
+  ];
+
+  const privateGridImages = [
     { src: "https://picsum.photos/800", alt: "Image 1" },
     { src: "https://picsum.photos/800", alt: "Image 2" },
     { src: "https://picsum.photos/800", alt: "Image 3" },
@@ -94,6 +115,30 @@ export default function PublicPortfolio() {
           ))}
         </ElementGrid>
       </section>
+      {/* Element grid section */}
+      { isLoggedIn &&
+      <section style={{ marginBottom: "70px" }}>
+        <h1
+          style={{
+            textAlign: "center",
+            height: "10vh",
+            margin: 0,
+            paddingBottom: "80px",
+            fontSize: "2.5em",
+          }}
+        >
+          Nos publications privées
+        </h1>
+        <ElementGrid
+          elementStyle={{ width: "20%", aspectRatio: "1/1" }}
+          animate
+        >
+          {privateGridImages.map((image, i) => (
+            <img src={image.src} alt={image.alt} key={i} onDoubleClick={() => handleImageClick(image)}/>
+          ))}
+        </ElementGrid>
+      </section>
+      }
       <CenteredModal open={isModalOpen} handleClose={() => closeModal()} sx={{ }}>
       {selectedImage && <ImageCard image={selectedImage} />}
       </CenteredModal>

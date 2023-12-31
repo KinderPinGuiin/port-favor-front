@@ -1,4 +1,8 @@
-import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { Button, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import DownloadIcon from '@mui/icons-material/Download';
+// import { useTheme } from "@mui/material";
+import { useDownloadImage } from "@hook/image/useDownloadImage";
+import { Snackbar } from '@mui/material';
 
 export type ImageCardProps = {
   image: {
@@ -9,11 +13,23 @@ export type ImageCardProps = {
 };
 
 export default function ImageCard({ image }: ImageCardProps) {
+  // const theme = useTheme();
   const { src, name, description } = image;
   const defaultName = "Nom de l'image";
   const defaultDescription = "Description de l'image Description de l'imageDescription de l'image";
 
+  const { downloadImage, error } = useDownloadImage();
+  const handleDownload = async () => {
+    await downloadImage(src, name || 'image');
+  };
+
   return (
+    <>
+      <Snackbar
+         open={error !== null}
+         autoHideDuration={6000}
+         message={error || ''}
+       />
     <Card>
       <Grid container>
         <Grid item xs={9}>
@@ -36,9 +52,19 @@ export default function ImageCard({ image }: ImageCardProps) {
             <Typography variant="subtitle1" component="div" color="text.secondary">
               {description || defaultDescription}
             </Typography>
+            <Button variant="contained" startIcon={<DownloadIcon style={{ fontSize: "2rem", cursor: "pointer"}}/>}
+              onClick={handleDownload}
+              style={{
+                position: 'absolute',
+                bottom: 1,
+                right: 1
+              }}
+            >Télécharger
+            </Button>
           </CardContent>
         </Grid>
       </Grid>
     </Card>
+</>
   );
 }

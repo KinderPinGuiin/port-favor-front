@@ -16,11 +16,7 @@ export default function Home() {
   }, []);
 
   const onAccessButtonClick = useCallback(() => {
-    if (isLoggedIn) {
-      navigate("/portfolio/private");
-    } else {
-      navigate("/portfolio/public");
-    }
+    navigate("/portfolio");
   }, []);
 
   const onLoginButtonClick = useCallback(() => {

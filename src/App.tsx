@@ -7,9 +7,8 @@ import MustBeLoggedOutRoute from "@component/MustBeLoggedOutRoute/MustBeLoggedOu
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Logout from "@page/user/Logout";
 import NavbarLayout from "layout/NavbarLayout/NavbarLayout";
-import PublicPortfolio from "@page/portfolio/PublicPortfolio";
-import PrivatePortfolio from "@page/portfolio/PrivatePortfolio";
 import Modify from "@page/user/Modify";
+import Portfolio from "@page/portfolio/Portfolio";
 
 function App() {
   // Defining all the application routes
@@ -22,16 +21,12 @@ function App() {
           element: <Home />
         },
         {
-          path: "/portfolio/public",
-          element: <PublicPortfolio />
+          path: "/portfolio",
+          element: <Portfolio />
         },
         {
           element: <MustBeLoggedInRoute />,
           children: [
-            {
-              path: "/portfolio/private",
-              element: <PrivatePortfolio />
-            },
             {
               path: "/user/logout",
               element: <Logout />
