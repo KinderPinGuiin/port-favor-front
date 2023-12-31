@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import { useTheme } from "@mui/material";
@@ -12,23 +12,16 @@ export function HomeButtonLayout() {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
       {
         location.pathname !== "/" &&
         <Link 
           to={"/"} 
           style={{
-            position: "absolute", 
-            top: 20,
-            left: 10,
-            textDecoration: "none", 
-            color: theme.palette.primary.main,
+            color: theme.palette.primary.light,
           }}>
             <HomeIcon style={{ fontSize: "2rem", cursor: "pointer" }} />
         </Link>
       }
-      </div>
-      <Outlet />
     </>
   )
 }

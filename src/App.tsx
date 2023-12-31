@@ -7,37 +7,37 @@ import MustBeLoggedOutRoute from "@component/MustBeLoggedOutRoute/MustBeLoggedOu
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Logout from "@page/authentication/Logout";
 import NavbarLayout from "layout/NavbarLayout/NavbarLayout";
-// import { AuthenticationButtonLayout } from "layout/AuthenticationButtonLayout/AuthenticationButtonLayout";
-// import { HomeButtonLayout } from "layout/HomeButtonLayout/HomeButtonLayout";
 
 function App() {
   // Defining all the application routes
   const router = createBrowserRouter([
     {
-      element: <NavbarLayout children={undefined} />,
-    },
-    {
-      path: "/logout",
-      element: <Logout />
-    },
-    {
-      path: "/",
-      element: <Home />
-    },
-    {
-      element: <MustBeLoggedInRoute />,
+      element: <NavbarLayout />,
       children: [
         {
-          path: "/blabla"
-        }
-      ]
-    },
-    {
-      element: <MustBeLoggedOutRoute />,
-      children: [
+          path: "/logout",
+          element: <Logout />
+        },
         {
-          path: "/authentication",
-          element: <Authentication />
+          path: "/",
+          element: <Home />
+        },
+        {
+          element: <MustBeLoggedInRoute />,
+          children: [
+            {
+              path: "/blabla"
+            }
+          ]
+        },
+        {
+          element: <MustBeLoggedOutRoute />,
+          children: [
+            {
+              path: "/authentication",
+              element: <Authentication />
+            }
+          ]
         }
       ]
     }
@@ -46,15 +46,16 @@ function App() {
   // Create the application theme
   const primaryColor = "#223A54"
   const secondaryColor = "#FFF6FF"
+  const lightPrimaryColor = "black"
   const theme = createTheme({
     palette: {
       primary: {
         main: primaryColor,
-        light: primaryColor,
+        light: lightPrimaryColor,
       },
       secondary: {
         main: secondaryColor,
-        light: secondaryColor
+        light: secondaryColor,
       }
     },
     components: {

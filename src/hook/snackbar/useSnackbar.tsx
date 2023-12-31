@@ -27,7 +27,7 @@ export default function useSnackbar(
       open={open}
       autoHideDuration={autoHideDuration}
       onClose={handleClose}
-      message={type != undefined ? null : message}
+      message={type !== undefined ? null : message}
       anchorOrigin={position ?? { horizontal: "right", vertical: "bottom" }}
       action={snackbarAction}
     >

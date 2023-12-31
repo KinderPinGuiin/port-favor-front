@@ -50,10 +50,10 @@ export default function useApiMutation<T, U>(
     },
     {
       onSuccess: (data) => {
-        if (options?.queryKey != undefined) {
+        if (options?.queryKey !== undefined) {
           queryClient.setQueryData(options?.queryKey, data)
         }
-        if (options?.invalidateQueries != undefined) {
+        if (options?.invalidateQueries !== undefined) {
           queryClient.invalidateQueries(options.invalidateQueries)
         }
         if (options?.onSuccess) {

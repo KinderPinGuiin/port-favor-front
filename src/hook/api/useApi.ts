@@ -16,14 +16,14 @@ export default function useApi<T, U>(
   options: APIOptions | undefined = undefined,
 ) {
   // Check that the given endpoint method is GET
-  if (endpoint.method != "GET") {
+  if (endpoint.method !== "GET") {
     throw `Invalid endpoint method for useApi (${endpoint.method}), use GET or call the useApiMutation hook.`;
   }
 
   // Extract query params and replace them with their associated values
   const queryParamPattern = /{[a-z0-9]+}/i;
   let finalURI = import.meta.env.VITE_API_HOST + endpoint.uri;
-  if (options?.searchParams != null) {
+  if (options?.searchParams !== null) {
     finalURI += "?" + options?.searchParams?.toString();
   }
   endpoint.uri.match(queryParamPattern)?.forEach(queryParamIdentifier => {

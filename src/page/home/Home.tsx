@@ -14,6 +14,10 @@ export default function Home() {
     setIsLoggedIn(Boolean(localStorage.getItem('token')));
   }, []);
 
+  const onAccessButtonClick = useCallback(() => {
+    navigate("/blabla");
+  }, []);
+
   const onLoginButtonClick = useCallback(() => {
     navigate("/authentication");
   }, []);
@@ -28,7 +32,8 @@ export default function Home() {
         <ApplicationTitle>PortFavor</ApplicationTitle>
         <ApplicationSubtitle>Un portfolio de FOU FURIEUX</ApplicationSubtitle>
         <Box marginTop={5}>
-          <Button variant="contained" style={{ zIndex: "1", width: "45%", marginRight: "5px" }}>
+          <Button variant="contained" onClick={onAccessButtonClick}
+            style={{ zIndex: "1", width: "45%", marginRight: "5px" }}>
             Accéder
           </Button>
           <Button variant="outlined" onClick={isLoggedIn ? onLogoutButtonClick : onLoginButtonClick} 

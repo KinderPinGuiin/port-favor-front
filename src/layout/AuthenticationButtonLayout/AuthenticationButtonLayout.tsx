@@ -1,6 +1,6 @@
-import { Outlet, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import LogginIcon from '@mui/icons-material/Lock';
+import LoginIcon from '@mui/icons-material/Lock';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useTheme } from "@mui/material";
 
@@ -11,44 +11,31 @@ import { useTheme } from "@mui/material";
 export function AuthenticationButtonLayout() {
   const theme = useTheme();
   const location = useLocation();
-  console.log("baba");
-  console.log(localStorage.getItem("token"));
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
       {
-        location.pathname !== "/" && location.pathname != "/authentication" 
-        && localStorage.getItem("token") != null &&
+        location.pathname !== "/" && location.pathname !== "/authentication" 
+        && localStorage.getItem("token") !== null &&
         <Link 
           to={"/logout"} 
           style={{
-            position: "absolute", 
-            top: 20, 
-            left: 50,
-            textDecoration: "none", 
-            color: theme.palette.primary.main,
+            color: theme.palette.primary.light,
           }}>
-          <LogginIcon style={{ fontSize: "2rem", cursor: "pointer" }} />
+          <LogoutIcon style={{ fontSize: "2rem", cursor: "pointer" }} />
         </Link>
       }
       {
-        location.pathname !== "/" && location.pathname != "/authentication" 
+        location.pathname !== "/" && location.pathname !== "/authentication" 
         && localStorage.getItem("token") == null &&
         <Link 
           to={"/authentication"} 
           style={{
-            position: "absolute", 
-            top: 20, 
-            left: 50,
-            textDecoration: "none", 
-            color: theme.palette.primary.main,
+            color: theme.palette.primary.light,
           }}>
-            <LogoutIcon style={{ fontSize: "2rem", cursor: "pointer" }} />
+          <LoginIcon style={{ fontSize: "2rem", cursor: "pointer" }} />
         </Link>
       }
-      </div>
-      <Outlet />
     </>
   )
 }
