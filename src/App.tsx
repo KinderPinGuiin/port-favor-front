@@ -1,14 +1,15 @@
 import React from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "@page/home/Home";
-import Authentication from "@page/authentication/Authentication";
+import Authentication from "@page/user/Authentication";
 import MustBeLoggedInRoute from "@component/MustBeLoggedInRoute/MustBeLoggedInRoute";
 import MustBeLoggedOutRoute from "@component/MustBeLoggedOutRoute/MustBeLoggedOutRoute";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import Logout from "@page/authentication/Logout";
+import Logout from "@page/user/Logout";
 import NavbarLayout from "layout/NavbarLayout/NavbarLayout";
 import PublicPortfolio from "@page/portfolio/PublicPortfolio";
 import PrivatePortfolio from "@page/portfolio/PrivatePortfolio";
+import Modify from "@page/user/Modify";
 
 function App() {
   // Defining all the application routes
@@ -21,10 +22,6 @@ function App() {
           element: <Home />
         },
         {
-          path: "/logout",
-          element: <Logout />
-        },
-        {
           path: "/portfolio/public",
           element: <PublicPortfolio />
         },
@@ -34,6 +31,14 @@ function App() {
             {
               path: "/portfolio/private",
               element: <PrivatePortfolio />
+            },
+            {
+              path: "/user/logout",
+              element: <Logout />
+            },
+            {
+              path: "/user/modify",
+              element: <Modify />
             }
           ]
         },
@@ -41,7 +46,7 @@ function App() {
           element: <MustBeLoggedOutRoute />,
           children: [
             {
-              path: "/authentication",
+              path: "/user/authentication",
               element: <Authentication />
             }
           ]

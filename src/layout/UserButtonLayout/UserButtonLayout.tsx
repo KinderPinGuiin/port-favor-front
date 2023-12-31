@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button, Menu, MenuItem, useTheme } from "@mui/material";
 import React from "react";
-import { useLocation } from "react-router";
 
 /**
  * Layout adding a logout button when the route isn't "/" and "user/authenticate" and the user is logged in,
  * or a login button if the user isn't logged in.
  */
-export function DashboardButtonLayout() {
+export function UserButtonLayout() {
   const theme = useTheme();
-  const location = useLocation()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,8 +20,6 @@ export function DashboardButtonLayout() {
   return (
     <>
       {
-        // TODO ajouter condition que l'utilisateur doit être admin
-        location.pathname.includes("/portfolio") &&
         localStorage.getItem("token") !== null &&
         <>
         <Button
@@ -35,7 +31,7 @@ export function DashboardButtonLayout() {
         style={{
           color: theme.palette.primary.light,
         }}>
-        Administration
+        Utilisateur
       </Button>
       <Menu
         id="basic-menu"
@@ -48,27 +44,63 @@ export function DashboardButtonLayout() {
       >
         <MenuItem>
         <Link 
-          to={"portfolio/users"} 
+          to={"user/logout"} 
           style={{
             color: theme.palette.primary.light,
             textDecoration: "none",
           }}>
-          Gérer les utilisateurs
+          Déconnecter
         </Link>
         </MenuItem>
         <MenuItem>
         <Link 
-          to={"portfolio/images"} 
+          to={"user/modify"} 
           style={{
             color: theme.palette.primary.light,
             textDecoration: "none",
           }}>
-          Gérer les images
+          Modifier le profil
         </Link>
         </MenuItem>
       </Menu>
       </>
-    }
+      }
+      {
+        localStorage.getItem("token") == null &&
+        <>
+        <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        style={{
+          color: theme.palette.primary.light,
+        }}>
+        Utilisateur
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem>
+        <Link 
+          to={"user/authentication"} 
+          style={{
+            color: theme.palette.primary.light,
+            textDecoration: "none",
+          }}>
+          S'authentifier
+        </Link>
+        </MenuItem>
+      </Menu>
+      </>
+      }
     </>
   )
 }

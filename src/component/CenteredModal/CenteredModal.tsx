@@ -21,10 +21,8 @@ export default function CenteredModal({ open, handleClose, sx, children }: Cente
       left: '50%',
       transform: 'translate(-50%, -50%)',
       bgcolor: 'background.paper',
-      boxShadow: '0 0 20px rgba(0, 0, 0, 0.5)',
+      boxShadow: '0 0 15px rgba(0, 0, 0, 0.5)',
       borderRadius: "5px",
-      maxWidth: 'calc(100vw - 40px)', // Subtract 40px from total width
-      maxHeight: 'calc(100vh - 40px)', // Subtract 40px from total height
       padding: 0,
       margin: 0,
       display: 'flex',

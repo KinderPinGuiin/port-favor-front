@@ -29,8 +29,8 @@ export default function PublicPortfolio() {
 
   const carouselImages = [
     { src: "https://picsum.photos/200", alt: "Image 1" },
-    { src: "https://picsum.photos/900", alt: "Image 2" },
-    { src: "https://picsum.photos/1200", alt: "Image 3" },
+    { src: "https://picsum.photos/300", alt: "Image 2" },
+    { src: "https://picsum.photos/800", alt: "Image 3" },
   ];
 
   const gridImages = [

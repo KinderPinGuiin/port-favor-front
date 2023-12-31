@@ -10,12 +10,27 @@
 import ElementCarousel from "@component/Carousel/ElementCarousel";
 import CenterDiv from "@component/CenterDiv/CenterDiv";
 import ElementGrid from "@component/ElementGrid/ElementGrid";
+import CenteredModal from "@component/CenteredModal/CenteredModal";
+import { useState } from "react";
+import ImageCard from "@component/ImageCard/ImageCard";
 
 export default function PrivatePortfolio() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+   };
+
   const carouselImages = [
-    { src: "https://picsum.photos/800", alt: "Image 1" },
-    { src: "https://picsum.photos/900", alt: "Image 2" },
-    { src: "https://picsum.photos/1200", alt: "Image 3" },
+    { src: "https://picsum.photos/200", alt: "Image 1" },
+    { src: "https://picsum.photos/300", alt: "Image 2" },
+    { src: "https://picsum.photos/800", alt: "Image 3" },
   ];
 
   const gridImages = [
@@ -52,7 +67,7 @@ export default function PrivatePortfolio() {
         <CenterDiv sx={{ height: "90vh" }}>
           <ElementCarousel style={{ height: "80%", width: "60%" }}>
             {carouselImages.map((image, i) => (
-              <img src={image.src} alt={image.alt} key={i} />
+              <img src={image.src} alt={image.alt} key={i} onDoubleClick={() => handleImageClick(image)}/>
             ))}
           </ElementCarousel>
         </CenterDiv>
@@ -68,17 +83,20 @@ export default function PrivatePortfolio() {
             fontSize: "2.5em",
           }}
         >
-          Toutes nos publications
+          Nos publications publiques
         </h1>
         <ElementGrid
           elementStyle={{ width: "20%", aspectRatio: "1/1" }}
           animate
         >
           {gridImages.map((image, i) => (
-            <img src={image.src} alt={image.alt} key={i} />
+            <img src={image.src} alt={image.alt} key={i} onDoubleClick={() => handleImageClick(image)}/>
           ))}
         </ElementGrid>
       </section>
+      <CenteredModal open={isModalOpen} handleClose={() => closeModal()} sx={{ }}>
+      {selectedImage && <ImageCard image={selectedImage} />}
+      </CenteredModal>
     </>
   );
 }

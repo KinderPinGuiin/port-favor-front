@@ -1,9 +1,9 @@
 import { HomeButtonLayout } from "layout/HomeButtonLayout/HomeButtonLayout";
-import { AuthenticationButtonLayout } from "layout/AuthenticationButtonLayout/AuthenticationButtonLayout";
-import { InfosLayout } from "layout/InfosLayout/InfosLayout";
+import { UserButtonLayout } from "layout/UserButtonLayout/UserButtonLayout";
 import { Outlet } from "react-router";
 import { useTheme } from "@mui/material";
 import Stack from '@mui/material/Stack';
+import { DashboardButtonLayout } from "layout/DashboardButtonLayout/DashboardButtonLayout";
 
 export default function NavbarLayout() {
   const theme = useTheme();
@@ -12,7 +12,6 @@ export default function NavbarLayout() {
     <>
     {/* TODO regarder pourquoi la barre disparait après un rechargement de page */}
       {
-        // location.pathname !== "/" || location.pathname == "/" && localStorage.getItem("token") !== null &&
         <Stack direction="row" spacing={1} justifyContent="center" alignItems="center" sx={{
           position: "fixed", 
           bottom: 3,
@@ -29,7 +28,8 @@ export default function NavbarLayout() {
           borderRadius: "50px",
         }}>
           <HomeButtonLayout />
-          <AuthenticationButtonLayout />
+          <UserButtonLayout />
+          <DashboardButtonLayout />
         </Stack>
       }
         <Outlet />

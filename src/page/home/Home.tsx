@@ -16,15 +16,19 @@ export default function Home() {
   }, []);
 
   const onAccessButtonClick = useCallback(() => {
-    navigate("/portfolio/public");
+    if (isLoggedIn) {
+      navigate("/portfolio/private");
+    } else {
+      navigate("/portfolio/public");
+    }
   }, []);
 
   const onLoginButtonClick = useCallback(() => {
-    navigate("/authentication");
+    navigate("user/authenticate");
   }, []);
 
   const onLogoutButtonClick = useCallback(() => {
-    navigate("/logout");
+    navigate("user/logout");
   }, []);
 
   return (
