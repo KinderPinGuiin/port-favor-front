@@ -1,27 +1,46 @@
 import React from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "@page/home/Home";
-import Login from "@page/login/Login";
+import Authentication from "@page/authentication/Authentication";
+import MustBeLoggedInRoute from "@component/MustBeLoggedInRoute/MustBeLoggedInRoute";
+import MustBeLoggedOutRoute from "@component/MustBeLoggedOutRoute/MustBeLoggedOutRoute";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import { HomeButtonLayout } from "layout/HomeButtonLayout/HomeButtonLayout";
+import Logout from "@page/authentication/Logout";
+import NavbarLayout from "layout/NavbarLayout/NavbarLayout";
+// import { AuthenticationButtonLayout } from "layout/AuthenticationButtonLayout/AuthenticationButtonLayout";
+// import { HomeButtonLayout } from "layout/HomeButtonLayout/HomeButtonLayout";
 
 function App() {
   // Defining all the application routes
   const router = createBrowserRouter([
     {
-      element: <HomeButtonLayout />,
+      element: <NavbarLayout children={undefined} />,
+    },
+    {
+      path: "/logout",
+      element: <Logout />
+    },
+    {
+      path: "/",
+      element: <Home />
+    },
+    {
+      element: <MustBeLoggedInRoute />,
       children: [
         {
-          path: "/",
-          element: <Home />
-        },
+          path: "/blabla"
+        }
+      ]
+    },
+    {
+      element: <MustBeLoggedOutRoute />,
+      children: [
         {
-          path: "/login",
-          element: <Login />
+          path: "/authentication",
+          element: <Authentication />
         }
       ]
     }
-    
   ]);
 
   // Create the application theme
@@ -55,7 +74,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {/* Providing the router inside the application */}
-        <RouterProvider router={router}></RouterProvider>
+        <RouterProvider router={router}>
+        </RouterProvider>
       </ThemeProvider>
     </React.StrictMode>  
   )

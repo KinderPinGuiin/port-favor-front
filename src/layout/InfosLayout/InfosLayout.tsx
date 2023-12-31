@@ -6,7 +6,7 @@ import { useTheme } from "@mui/material";
 /**
  * Layout adding a home button when the route isn't "/".
  */
-export function HomeButtonLayout() {
+export function InfosLayout() {
   const theme = useTheme();
   const location = useLocation()
 
@@ -19,8 +19,7 @@ export function HomeButtonLayout() {
           to={"/"} 
           style={{
             position: "absolute", 
-            top: 20,
-            left: 10,
+            top: 90,
             textDecoration: "none", 
             color: theme.palette.primary.main,
           }}>

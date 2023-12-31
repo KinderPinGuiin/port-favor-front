@@ -1,6 +1,6 @@
 import SplashBackground from "@component/SplashBackground/SplashBackground";
 import { Box, Button, styled } from "@mui/material";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -8,9 +8,18 @@ import { useNavigate } from "react-router-dom";
  */
 export default function Home() {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(Boolean(localStorage.getItem('token')));
+  }, []);
 
   const onLoginButtonClick = useCallback(() => {
-    navigate("/login");
+    navigate("/authentication");
+  }, []);
+
+  const onLogoutButtonClick = useCallback(() => {
+    navigate("/logout");
   }, []);
 
   return (
@@ -22,12 +31,14 @@ export default function Home() {
           <Button variant="contained" style={{ zIndex: "1", width: "45%", marginRight: "5px" }}>
             Accéder
           </Button>
-          <Button variant="outlined" onClick={onLoginButtonClick} style={{ zIndex: "1", width: "45%" }}>
-            Se connecter
+          <Button variant="outlined" onClick={isLoggedIn ? onLogoutButtonClick : onLoginButtonClick} 
+            style={{ zIndex: "1", width: "45%" }}>
+            {isLoggedIn ? 'Deconnéxion' : 'Se connecter'}
           </Button>
         </Box>
       </TitleContainer>
       <SplashBackground src="https://picsum.photos/600" alt="Random test picture" />
+      
     </HomeWrapper>
   );
 }

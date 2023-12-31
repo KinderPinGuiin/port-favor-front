@@ -4,8 +4,8 @@
 export default class RegistrationRequestDTO {
   
   /**
-   * @param login    The user's login.
-   * @param password The user's password.
+   * @param login    The new user's login.
+   * @param password The new user's password.
    */
   constructor(
     public readonly login: string,
