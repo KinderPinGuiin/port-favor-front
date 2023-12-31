@@ -16,7 +16,7 @@ export default function Home() {
   }, []);
 
   const onAccessButtonClick = useCallback(() => {
-    navigate("/portfolio");
+    navigate("/portfolio/public");
   }, []);
 
   const onLoginButtonClick = useCallback(() => {

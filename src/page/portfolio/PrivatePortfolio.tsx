@@ -11,7 +11,7 @@ import ElementCarousel from "@component/Carousel/ElementCarousel";
 import CenterDiv from "@component/CenterDiv/CenterDiv";
 import ElementGrid from "@component/ElementGrid/ElementGrid";
 
-export default function Portfolio() {
+export default function PrivatePortfolio() {
   const carouselImages = [
     { src: "https://picsum.photos/800", alt: "Image 1" },
     { src: "https://picsum.photos/900", alt: "Image 2" },
@@ -58,7 +58,18 @@ export default function Portfolio() {
         </CenterDiv>
       </section>
       {/* Element grid section */}
-      <section>
+      <section style={{ marginBottom: "70px" }}>
+        <h1
+          style={{
+            textAlign: "center",
+            height: "10vh",
+            margin: 0,
+            paddingBottom: "80px",
+            fontSize: "2.5em",
+          }}
+        >
+          Toutes nos publications
+        </h1>
         <ElementGrid
           elementStyle={{ width: "20%", aspectRatio: "1/1" }}
           animate

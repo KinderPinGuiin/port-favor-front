@@ -10,9 +10,9 @@ export default function NavbarLayout() {
 
   return (
     <>
-    #TODO regarder pourquoi la barre disparait après un rechargement de page
+    {/* TODO regarder pourquoi la barre disparait après un rechargement de page */}
       {
-        location.pathname !== "/" || location.pathname == "/" && localStorage.getItem("token") !== null &&
+        // location.pathname !== "/" || location.pathname == "/" && localStorage.getItem("token") !== null &&
         <Stack direction="row" spacing={1} justifyContent="center" alignItems="center" sx={{
           position: "fixed", 
           bottom: 3,
@@ -26,11 +26,10 @@ export default function NavbarLayout() {
           display: 'flex',
           padding: '10px',
           zIndex: 1,
-          borderRadius: "50px"
+          borderRadius: "50px",
         }}>
           <HomeButtonLayout />
           <AuthenticationButtonLayout />
-          <InfosLayout />
         </Stack>
       }
         <Outlet />

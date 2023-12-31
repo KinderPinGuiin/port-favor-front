@@ -17,7 +17,7 @@ export function HomeButtonLayout() {
         <Link 
           to={"/"} 
           style={{
-            color: theme.palette.primary.light,
+            color: theme.palette.primary.light
           }}>
             <HomeIcon style={{ fontSize: "2rem", cursor: "pointer" }} />
         </Link>
