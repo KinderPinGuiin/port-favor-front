@@ -16,10 +16,6 @@ import {
   GridFilterModel,
   getGridStringOperators,
 } from "@mui/x-data-grid";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs, { Dayjs } from "dayjs";
 import CenteredModal from "@component/CenteredModal/CenteredModal";
 import useApiMutation from "@hook/api/useApiMutation";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -34,11 +30,8 @@ import RoleDTO from "@api/dto/response/role/RoleDTO";
 type UserSearchModel = {
   page: number;
   pageSize: number;
-  minDate: string;
-  maxDate: string;
   isUserAvailable: boolean | null;
-  nameSort: number | null;
-  creationDateSort: number | null;
+  idSort: number | null;
   nameFilter: string | null;
 };
 
@@ -62,15 +55,19 @@ export default function Users() {
       headerName: "Id",
       flex: 1,
       type: "number",
+      align: "center",
+      headerAlign: "center",
       filterOperators: getGridStringOperators().filter(
         (o) => o.value === "equals"
       ),
     },
     {
-      field: "login",
+      field: "username",
       headerName: "Adresse mail",
       flex: 1,
       type: "string",
+      align: "center",
+      headerAlign: "center",
       filterOperators: getGridStringOperators().filter(
         (o) => o.value === "contains"
       ),
@@ -80,6 +77,8 @@ export default function Users() {
       headerName: "Roles",
       flex: 1,
       type: "boolean",
+      align: "center",
+      headerAlign: "center",
       valueGetter: (params) => {
         // Obtenez la valeur des rôles de la ligne
         const roles: RoleDTO[] = params.row.roles;
@@ -94,6 +93,8 @@ export default function Users() {
       field: "actions",
       headerName: "Actions",
       type: "actions",
+      align: "center",
+      headerAlign: "center",
       flex: 0.5,
       sortable: false,
       getActions: (params) => [
@@ -117,11 +118,8 @@ export default function Users() {
   const initialSearchModel: UserSearchModel = {
     page: 0,
     pageSize: 10,
-    minDate: dayjs("1970-01-01").toISOString(),
-    maxDate: dayjs().add(1, "day").toISOString(),
     isUserAvailable: null,
-    nameSort: null,
-    creationDateSort: null,
+    idSort: null,
     nameFilter: null,
   };
   const [searchModel, setSearchModel] = useState(initialSearchModel);
@@ -130,20 +128,13 @@ export default function Users() {
     page: GridPaginationModel,
     sort: GridSortModel
   ) => {
-    const nameSort = sort.filter((s) => s.field == "name")[0];
-    const creationDateSort = sort.filter((s) => s.field == "creationDate")[0];
+    const idSort = sort.filter((s) => s.field == "id")[0];
     const newSearchModel: UserSearchModel = {
       ...searchModel,
       page: page.page,
       pageSize: page.pageSize,
-      nameSort:
-        nameSort?.sort === undefined ? null : nameSort.sort === "desc" ? 0 : 1,
-      creationDateSort:
-        creationDateSort?.sort === undefined
-          ? null
-          : creationDateSort.sort === "desc"
-          ? 0
-          : 1,
+      idSort:
+      idSort?.sort === undefined ? null : idSort.sort === "desc" ? 0 : 1,
     };
     if (JSON.stringify(newSearchModel) != JSON.stringify(searchModel)) {
       setSearchModel(newSearchModel);
@@ -165,20 +156,6 @@ export default function Users() {
     }
   };
 
-  const onMinDateChange = (newValue: Dayjs | null) => {
-    setSearchModel({
-      ...searchModel,
-      minDate: newValue?.toISOString() ?? initialSearchModel.minDate,
-    });
-  };
-
-  const onMaxDateChange = (newValue: Dayjs | null) => {
-    setSearchModel({
-      ...searchModel,
-      maxDate: newValue?.toISOString() ?? initialSearchModel.maxDate,
-    });
-  };
-
   // Send an API request to get the users
   const {
     data: users,
@@ -192,10 +169,7 @@ export default function Users() {
       buildSearchParamsNullSafe({
         page: `${searchModel.page}`,
         pageSize: `${searchModel.pageSize}`,
-        nameSort: searchModel.nameSort,
-        minDate: searchModel.minDate,
-        maxDate: searchModel.maxDate,
-        creationDateSort: searchModel.creationDateSort,
+        nameSort: searchModel.idSort,
         nameFilter: searchModel.nameFilter,
         isUserAvailable: searchModel.isUserAvailable,
       })
@@ -286,20 +260,6 @@ export default function Users() {
           margin: "auto",
         }}
       >
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Box>
-            <DatePicker
-              label="Date minimale"
-              sx={{ margin: "10px 10px 10px 0" }}
-              onChange={onMinDateChange}
-            />
-            <DatePicker
-              label="Date maximale"
-              sx={{ margin: "10px 10px 10px 0" }}
-              onChange={onMaxDateChange}
-            />
-          </Box>
-        </LocalizationProvider>
         <Button
           variant="contained"
           sx={{ margin: "10px 0" }}
