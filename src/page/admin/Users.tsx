@@ -205,6 +205,7 @@ export default function Users() {
     refetch();
   }
 
+  // TODO regarder pour update
   // User update handling
   const [openUserUpdate, setOpenUserUpdate] = useState(false);
   const { snackbar: updateErrorSnackbar, show: showUpdateError } = useSnackbar(
