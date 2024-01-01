@@ -7,14 +7,11 @@ import { useState } from "react";
 import {
   GridColDef,
   GridPaginationModel,
-  GridSortModel,
 } from "@mui/x-data-grid/models/";
 import ServerSideTable from "@component/ServerSideTable/ServerSideTable";
 import { buildSearchParamsNullSafe } from "@utils/url-utils";
 import {
   GridActionsCellItem,
-  GridFilterModel,
-  getGridStringOperators,
 } from "@mui/x-data-grid";
 import CenteredModal from "@component/CenteredModal/CenteredModal";
 import useApiMutation from "@hook/api/useApiMutation";
@@ -30,9 +27,6 @@ import RoleDTO from "@api/dto/response/role/RoleDTO";
 type UserSearchModel = {
   page: number;
   pageSize: number;
-  isUserAvailable: boolean | null;
-  idSort: number | null;
-  nameFilter: string | null;
 };
 
 export default function Users() {
@@ -46,7 +40,7 @@ export default function Users() {
   const [selectedUser, setSelectedUser] =
     useState<UserResponseDTO>({
       id: 0,
-      login: "",
+      email: "",
       roles: [],
     });
   const tableColumns: GridColDef[] = [
@@ -57,9 +51,8 @@ export default function Users() {
       type: "number",
       align: "center",
       headerAlign: "center",
-      filterOperators: getGridStringOperators().filter(
-        (o) => o.value === "equals"
-      ),
+      sortable: false,
+      filterable: false,
     },
     {
       field: "username",
@@ -68,9 +61,8 @@ export default function Users() {
       type: "string",
       align: "center",
       headerAlign: "center",
-      filterOperators: getGridStringOperators().filter(
-        (o) => o.value === "contains"
-      ),
+      sortable: false,
+      filterable: false,
     },
     {
       field: "roles",
@@ -79,6 +71,8 @@ export default function Users() {
       type: "string",
       align: "center",
       headerAlign: "center",
+      sortable: false,
+      filterable: false,
       valueGetter: (params) => {
         // Obtenez la valeur des rôles de la ligne
         const roles: RoleDTO[] = params.row.roles;
@@ -97,6 +91,7 @@ export default function Users() {
       headerAlign: "center",
       flex: 0.5,
       sortable: false,
+      filterable: false,
       getActions: (params) => [
         <GridActionsCellItem
           icon={<EditIcon />}
@@ -118,38 +113,16 @@ export default function Users() {
   const initialSearchModel: UserSearchModel = {
     page: 0,
     pageSize: 10,
-    isUserAvailable: null,
-    idSort: null,
-    nameFilter: null,
   };
   const [searchModel, setSearchModel] = useState(initialSearchModel);
 
   const onSearchModelChange = (
     page: GridPaginationModel,
-    sort: GridSortModel
   ) => {
-    const idSort = sort.filter((s) => s.field == "id")[0];
     const newSearchModel: UserSearchModel = {
       ...searchModel,
       page: page.page,
       pageSize: page.pageSize,
-      idSort:
-      idSort?.sort === undefined ? null : idSort.sort === "desc" ? 0 : 1,
-    };
-    if (JSON.stringify(newSearchModel) != JSON.stringify(searchModel)) {
-      setSearchModel(newSearchModel);
-    }
-  };
-
-  const onFilterModelChange = (filter: GridFilterModel) => {
-    const nameFilter = filter.items.filter((f) => f.field == "name")[0];
-    const availableFilter = filter.items.filter(
-      (f) => f.field == "isAvailable"
-    )[0];
-    const newSearchModel: UserSearchModel = {
-      ...searchModel,
-      nameFilter: nameFilter?.value,
-      isUserAvailable: availableFilter?.value,
     };
     if (JSON.stringify(newSearchModel) != JSON.stringify(searchModel)) {
       setSearchModel(newSearchModel);
@@ -169,9 +142,6 @@ export default function Users() {
       buildSearchParamsNullSafe({
         page: `${searchModel.page}`,
         pageSize: `${searchModel.pageSize}`,
-        nameSort: searchModel.idSort,
-        nameFilter: searchModel.nameFilter,
-        isUserAvailable: searchModel.isUserAvailable,
       })
     ),
   });
@@ -217,8 +187,8 @@ export default function Users() {
     invalidateQueries: [JSON.stringify(searchModel)],
   });
   const updateUser = (user: UpdateUserRequestDTO) => {
-    const { newLogin } = user;
-    mutateUpdate({ newLogin });
+    const { newEmail } = user;
+    mutateUpdate({ newEmail });
     setOpenUserUpdate(false);
   };
   if (isUpdateError) {
@@ -280,7 +250,6 @@ export default function Users() {
           }}
           loading={isLoading}
           onChange={onSearchModelChange}
-          onFilter={onFilterModelChange}
         />
       </CenterDiv>
       {/* Creation modal */}

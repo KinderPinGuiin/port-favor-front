@@ -28,9 +28,9 @@ export default function UpdateUserForm({
           type="submit" 
           onClick={() => onSubmit({ 
             id: currentUser.id,
-            newLogin: emailRef.current?.value ?? "", 
-            newPassword: passwordRef.current?.value ?? "",
-            newRoles: currentUser.roles
+            email: emailRef.current?.value ?? "", 
+            password: passwordRef.current?.value ?? "",
+            roles: currentUser.roles
           })}
         >
           Editer
