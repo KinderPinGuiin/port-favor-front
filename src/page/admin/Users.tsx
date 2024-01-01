@@ -179,7 +179,7 @@ export default function Users() {
   // User creation handling
   const [openUserCreate, setOpenUserCreate] = useState(false);
   const { snackbar: creationErrorSnackbar, show: showCreationError } =
-    useSnackbar("Impossible de créer le livreur.", "error");
+    useSnackbar("Impossible de créer l'utilisateur.", "error");
   const {
     mutate: mutateCreation,
     isError: isCreationError,
@@ -208,7 +208,7 @@ export default function Users() {
   // User update handling
   const [openUserUpdate, setOpenUserUpdate] = useState(false);
   const { snackbar: updateErrorSnackbar, show: showUpdateError } = useSnackbar(
-    "Impossible de modifier le livreur.",
+    "Impossible de modifier l'utilisateur.",
     "error"
   );
   const {
