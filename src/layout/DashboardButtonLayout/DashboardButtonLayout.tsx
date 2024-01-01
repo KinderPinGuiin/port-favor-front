@@ -53,6 +53,7 @@ export function DashboardButtonLayout() {
         <MenuItem>
         <Link 
           to={"admin/users"} 
+          onClick={() => setOpen(false)}
           style={{
             color: theme.palette.primary.light,
             textDecoration: "none",
@@ -63,6 +64,7 @@ export function DashboardButtonLayout() {
         <MenuItem>
         <Link 
           to={"admin/images"} 
+          onClick={() => setOpen(false)}
           style={{
             color: theme.palette.primary.light,
             textDecoration: "none",

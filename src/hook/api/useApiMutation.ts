@@ -39,7 +39,7 @@ export default function useApiMutation<T, U>(
           Authorization: token ? `Bearer ${token}` : '',
           ...options?.headers,
         },
-        credentials: options?.credentialsPolicy ?? "include",
+        credentials: options?.credentialsPolicy ?? "same-origin",
       })
 
       // Check error and throw the response body if there is one

@@ -106,8 +106,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {/* Providing the router inside the application */}
-        <RouterProvider router={router}>
-        </RouterProvider>
+        <RouterProvider router={router} />
       </ThemeProvider>
     </React.StrictMode>  
   )

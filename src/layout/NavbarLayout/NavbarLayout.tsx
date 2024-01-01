@@ -1,5 +1,6 @@
 import { HomeButtonLayout } from "layout/HomeButtonLayout/HomeButtonLayout";
 import { UserButtonLayout } from "layout/UserButtonLayout/UserButtonLayout";
+import { PortfolioButtonLayout } from "layout/PortfolioButtonLayout/PortfolioButtonLayout";
 import { Outlet } from "react-router";
 import { useTheme } from "@mui/material";
 import Stack from '@mui/material/Stack';
@@ -27,6 +28,7 @@ export default function NavbarLayout() {
           borderRadius: "50px",
         }}>
           <HomeButtonLayout />
+          <PortfolioButtonLayout />
           <UserButtonLayout />
           <DashboardButtonLayout />
         </Stack>

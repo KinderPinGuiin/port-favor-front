@@ -96,7 +96,6 @@ export default function Images() {
       sortable: false,
       filterable: false,
       getActions: (params) => [
-        // TODO ajouter un bouton pour voir l'image avec sa carte habituelle
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Modifier"

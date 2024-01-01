@@ -7,14 +7,14 @@ import ImageCard from "@component/ImageCard/ImageCard";
 
 export default function PublicPortfolio() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<{src: string, alt: string} | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     setIsLoggedIn(Boolean(localStorage.getItem('token')));
   }, []);
 
-  const handleImageClick = (image) => {
+  const handleImageClick = (image: {src: string, alt: string}) => {
     setSelectedImage(image);
     setIsModalOpen(true);
   };
@@ -131,7 +131,7 @@ export default function PublicPortfolio() {
       </section>
       }
       <CenteredModal open={isModalOpen} handleClose={() => closeModal()} sx={{ }}>
-      {selectedImage && <ImageCard image={selectedImage} />}
+      {selectedImage && <ImageCard image={{ ...selectedImage, name: "", description: "" }} />}
       </CenteredModal>
     </>
   );
