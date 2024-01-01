@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { SyntheticEvent, useCallback, useRef, useState } from "react";
 import { useEffect } from 'react';
 import { Snackbar } from '@mui/material';
+import RegistrationRequestDTO from "@api/dto/request/authentication/RegistrationRequestDTO";
 
 export default function Login() {
  const navigate = useNavigate();
@@ -27,15 +28,16 @@ export default function Login() {
    const password = passwordRef.current?.value ?? "";
 
    // Call API
-   mutate(new AuthenticationRequestDTO(login, password));
+   mutate(formMode === 'login' ? new AuthenticationRequestDTO(login, password): new RegistrationRequestDTO(login, password));
  }, [formMode]);
 
  // Handling authentication
  useEffect(() => {
    if (data && !localStorage.getItem('token')) {
      localStorage.setItem("token", data.token);
-    //  localStorage.setItem("login", data.login);
-    //  localStorage.setItem("roles", JSON.stringify(data.roles));
+    //  TODO corriger problem de mixe username/login
+     localStorage.setItem("login", data.email);
+     localStorage.setItem("roles", JSON.stringify(data.roles));
      navigate("/");
    } else if (isError && apiError) {
      setErrorMessage(apiError.message || 'Une erreur inconnue est survenue');
