@@ -76,7 +76,7 @@ export default function Users() {
       field: "roles",
       headerName: "Roles",
       flex: 1,
-      type: "boolean",
+      type: "string",
       align: "center",
       headerAlign: "center",
       valueGetter: (params) => {
