@@ -10,6 +10,7 @@ import NavbarLayout from "layout/NavbarLayout/NavbarLayout";
 import Modify from "@page/user/Modify";
 import Portfolio from "@page/portfolio/Portfolio";
 import Users from "@page/admin/Users";
+import Images from "@page/admin/Images";
 
 function App() {
   // Defining all the application routes
@@ -39,6 +40,10 @@ function App() {
             {
               path: "/admin/users",
               element: <Users />
+            },
+            {
+              path: "/admin/images",
+              element: <Images />
             }
           ]
         },

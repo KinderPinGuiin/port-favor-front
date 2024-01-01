@@ -17,19 +17,20 @@ import CenteredModal from "@component/CenteredModal/CenteredModal";
 import useApiMutation from "@hook/api/useApiMutation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import CreateUserRequestDTO from "@api/dto/request/user/CreateUserRequestDTO";
-import UpdateUserAdminRequestDTO from "@api/dto/request/user/UpdateUserAdminRequestDTO";
-import UserResponseDTO from "@api/dto/response/user/UserResponseDTO";
-import CreateUserForm from "@component/CreateUserForm/CreateUserForm";
-import RoleDTO from "@api/dto/response/role/RoleDTO";
-import UpdateUserAdminForm from "@component/UpdateUserAdminForm/UpdateUserAdminForm";
+// import CreateUserRequestDTO from "@api/dto/request/user/CreateUserRequestDTO";
+// import UpdateUserAdminRequestDTO from "@api/dto/request/user/UpdateUserAdminRequestDTO";
+// import UserResponseDTO from "@api/dto/response/user/UserResponseDTO";
+// import CreateUserForm from "@component/CreateUserForm/CreateUserForm";
+// import RoleDTO from "@api/dto/response/role/RoleDTO";
+// import UpdateUserAdminForm from "@component/UpdateUserAdminForm/UpdateUserAdminForm";
+import ImageResponseDTO from "@api/dto/response/image/ImageResponseDTO";
 
 type UserSearchModel = {
   page: number;
   pageSize: number;
 };
 
-export default function Users() {
+export default function Images() {
   // Setup the fetch error snackbar
   const { snackbar: fetchErrorSnackbar, show: showFetchError } = useSnackbar(
     "Impossible de récupérer les utilisateurs.",
@@ -38,10 +39,13 @@ export default function Users() {
 
   // Server side table configuration
   const [selectedUser, setSelectedUser] =
-    useState<UserResponseDTO>({
+    useState<ImageResponseDTO>({
       id: 0,
-      email: "",
-      roles: [],
+      name: "",
+      description: "",
+      isPublic: true,
+      mime: "",
+      path: "",
     });
   const tableColumns: GridColDef[] = [
     {

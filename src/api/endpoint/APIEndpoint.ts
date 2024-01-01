@@ -7,6 +7,7 @@ import UserResponseDTO from "@api/dto/response/user/UserResponseDTO";
 import SearchResultResponseDTO from "@api/dto/search/SearchResultResponseDTO";
 import CreateUserRequestDTO from "@api/dto/request/user/CreateUserRequestDTO";
 import UpdateUserRequestDTO from "@api/dto/request/user/UpdateUserRequestDTO";
+import UpdateUserAdminRequestDTO from "@api/dto/request/user/UpdateUserAdminRequestDTO";
 
 /**
  * Class containing the API endpoints metadata (URI, request type...). This class also contains all the existing API 
@@ -22,6 +23,7 @@ export default class APIEndpoint<T, U> {
   public static readonly GET_USERS = new APIEndpoint("/user/get-all", "GET", null, SearchResultResponseDTO<UserResponseDTO>);
   public static readonly CREATE_USER = new APIEndpoint("/user/create", "POST", CreateUserRequestDTO, UserResponseDTO);
   public static readonly UPDATE_USER = new APIEndpoint("/user/update", "POST", UpdateUserRequestDTO, UserResponseDTO);
+  public static readonly UPDATE_USER_ADMIN = new APIEndpoint("/user/update-admin", "POST", UpdateUserAdminRequestDTO, UserResponseDTO);
   public static readonly DELETE_USER = new APIEndpoint("/user/delete", "DELETE", null, UserResponseDTO);
 
   /**

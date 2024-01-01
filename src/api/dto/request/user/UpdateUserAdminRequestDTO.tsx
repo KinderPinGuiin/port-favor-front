@@ -12,7 +12,7 @@ export default class UpdateUserAdminRequestDTO {
     constructor(
       public readonly id:    number,
       public readonly email: string,
-      public readonly password: string,
+      public readonly password: string | null,
       public readonly roles: string[],
     ) {}
   
