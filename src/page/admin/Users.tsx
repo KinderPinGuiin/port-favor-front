@@ -215,7 +215,12 @@ export default function Users() {
     invalidateQueries: [JSON.stringify(searchModel)],
   });
   const createUser = (user: CreateUserRequestDTO) => {
-    mutateCreation({ data: user });
+    // TODO regarder cette histoire de roleDTO
+    // eslint-disable-next-line prefer-const
+    let { login, password, roles } = user;
+    const roleNames: string[] = roles.map(role => role.name);
+    roles = roleNames; // Reassigning 'roles' with role names
+    mutateCreation({ login, password, roles });
     setOpenUserCreate(false);
   };
   if (isCreationError) {
@@ -241,7 +246,8 @@ export default function Users() {
     invalidateQueries: [JSON.stringify(searchModel)],
   });
   const updateUser = (user: UpdateUserRequestDTO) => {
-    mutateUpdate({ data: user });
+    const { newLogin } = user;
+    mutateUpdate({ newLogin });
     setOpenUserUpdate(false);
   };
   if (isUpdateError) {
@@ -263,9 +269,7 @@ export default function Users() {
   );
   const deleteUser = (id: number) => {
     mutateDelete({
-      searchParams: {
         id: id,
-      },
     });
   };
 
