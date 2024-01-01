@@ -3,7 +3,6 @@ import { useCallback, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { createPortal } from "react-dom";
 
-// TODO changer pour utiliser la snackbar de Jordan?
 export default function useSnackbar(
   message: string, 
   type?: "info" | "success" | "warning" | "error", 
@@ -28,7 +27,7 @@ export default function useSnackbar(
       open={open}
       autoHideDuration={autoHideDuration}
       onClose={handleClose}
-      message={type !== undefined ? null : message}
+      message={type != undefined ? null : message}
       anchorOrigin={position ?? { horizontal: "right", vertical: "bottom" }}
       action={snackbarAction}
     >

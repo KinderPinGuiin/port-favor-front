@@ -8,6 +8,9 @@ import SearchResultResponseDTO from "@api/dto/search/SearchResultResponseDTO";
 import CreateUserRequestDTO from "@api/dto/request/user/CreateUserRequestDTO";
 import UpdateUserRequestDTO from "@api/dto/request/user/UpdateUserRequestDTO";
 import UpdateUserAdminRequestDTO from "@api/dto/request/user/UpdateUserAdminRequestDTO";
+import ImageResponseDTO from "@api/dto/response/image/ImageResponseDTO";
+import CreateImageRequestDTO from "@api/dto/request/image/CreateImageRequestDTO";
+import UpdateImageRequestDTO from "@api/dto/request/image/UpdateImageRequestDTO";
 
 /**
  * Class containing the API endpoints metadata (URI, request type...). This class also contains all the existing API 
@@ -25,6 +28,13 @@ export default class APIEndpoint<T, U> {
   public static readonly UPDATE_USER = new APIEndpoint("/user/update", "POST", UpdateUserRequestDTO, UserResponseDTO);
   public static readonly UPDATE_USER_ADMIN = new APIEndpoint("/user/update-admin", "POST", UpdateUserAdminRequestDTO, UserResponseDTO);
   public static readonly DELETE_USER = new APIEndpoint("/user/delete", "DELETE", null, UserResponseDTO);
+
+  public static readonly GET_IMAGES_SKELETON = new APIEndpoint("/image/get-skeleton", "GET", null, SearchResultResponseDTO<ImageResponseDTO>);
+  public static readonly GET_IMAGE_SKELETON = new APIEndpoint("/image/get-skeleton/{name}", "GET", null, ImageResponseDTO);
+  public static readonly GET_IMAGE_CONTENT = new APIEndpoint("/image/get/{name}", "GET", null, SearchResultResponseDTO<ImageResponseDTO>);
+  public static readonly CREATE_IMAGE = new APIEndpoint("/image/create", "POST", CreateImageRequestDTO, ImageResponseDTO);
+  public static readonly UPDATE_IMAGE = new APIEndpoint("/image/update", "POST", UpdateImageRequestDTO, ImageResponseDTO);
+  public static readonly DELETE_IMAGE = new APIEndpoint("/image/delete", "DELETE", null, ImageResponseDTO);
 
   /**
    * @param uri          The endpoint's URI.

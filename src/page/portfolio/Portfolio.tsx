@@ -1,12 +1,3 @@
-/*
- * TODO
- * - Design du portfolio
- * - Animation au scroll (images)
- * - Animation au scroll (background) ?
- * - Adapter les options d'api pour prendre une url custom
- * - Adapter les options d'api pour customiser le retour (pas seulement json : binaire)
- */
-
 import ElementCarousel from "@component/Carousel/ElementCarousel";
 import CenterDiv from "@component/CenterDiv/CenterDiv";
 import ElementGrid from "@component/ElementGrid/ElementGrid";

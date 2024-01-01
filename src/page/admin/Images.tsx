@@ -17,15 +17,13 @@ import CenteredModal from "@component/CenteredModal/CenteredModal";
 import useApiMutation from "@hook/api/useApiMutation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-// import CreateUserRequestDTO from "@api/dto/request/user/CreateUserRequestDTO";
-// import UpdateUserAdminRequestDTO from "@api/dto/request/user/UpdateUserAdminRequestDTO";
-// import UserResponseDTO from "@api/dto/response/user/UserResponseDTO";
-// import CreateUserForm from "@component/CreateUserForm/CreateUserForm";
-// import RoleDTO from "@api/dto/response/role/RoleDTO";
-// import UpdateUserAdminForm from "@component/UpdateUserAdminForm/UpdateUserAdminForm";
 import ImageResponseDTO from "@api/dto/response/image/ImageResponseDTO";
+import CreateImageForm from "@component/CreateImageForm/CreateImageForm";
+import UpdateImageForm from "@component/UpdateImageForm/UpdateImageForm";
+import UpdateImageRequestDTO from "@api/dto/request/image/UpdateImageRequestDTO";
+import CreateImageRequestDTO from "@api/dto/request/image/CreateImageRequestDTO";
 
-type UserSearchModel = {
+type ImageSearchModel = {
   page: number;
   pageSize: number;
 };
@@ -33,12 +31,12 @@ type UserSearchModel = {
 export default function Images() {
   // Setup the fetch error snackbar
   const { snackbar: fetchErrorSnackbar, show: showFetchError } = useSnackbar(
-    "Impossible de récupérer les utilisateurs.",
+    "Impossible de récupérer les images.",
     "warning"
   );
 
   // Server side table configuration
-  const [selectedUser, setSelectedUser] =
+  const [selectedImage, setSelectedImage] =
     useState<ImageResponseDTO>({
       id: 0,
       name: "",
@@ -59,8 +57,8 @@ export default function Images() {
       filterable: false,
     },
     {
-      field: "email",
-      headerName: "Adresse mail",
+      field: "name",
+      headerName: "Nom",
       flex: 1,
       type: "string",
       align: "center",
@@ -69,23 +67,24 @@ export default function Images() {
       filterable: false,
     },
     {
-      field: "roles",
-      headerName: "Roles",
+      field: "description",
+      headerName: "Description",
       flex: 1,
       type: "string",
       align: "center",
       headerAlign: "center",
       sortable: false,
       filterable: false,
-      valueGetter: (params) => {
-        // Obtenez la valeur des rôles de la ligne
-        const roles: RoleDTO[] = params.row.roles;
-        
-        // Transformez les rôles en texte (ou toute autre représentation souhaitée)
-        const rolesText = roles.map(role => role.name).join(', ');
-  
-        return rolesText;
-      },
+    },
+    {
+      field: "public",
+      headerName: "Est publique",
+      flex: 1,
+      type: "boolean",
+      align: "center",
+      headerAlign: "center",
+      sortable: false,
+      filterable: false,
     },
     {
       field: "actions",
@@ -97,24 +96,25 @@ export default function Images() {
       sortable: false,
       filterable: false,
       getActions: (params) => [
+        // TODO ajouter un bouton pour voir l'image avec sa carte habituelle
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Modifier"
           onClick={() => {
-            setSelectedUser({ id: params.id as number, ...params.row });
-            setOpenUserUpdate(true);
+            setSelectedImage({ id: params.id as number, ...params.row });
+            setOpenImageUpdate(true);
           }}
         />,
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Supprimer"
-          onClick={() => deleteUser(params.id as number)}
+          onClick={() => deleteImage(params.id as number)}
         />,
       ],
     },
   ];
 
-  const initialSearchModel: UserSearchModel = {
+  const initialSearchModel: ImageSearchModel = {
     page: 0,
     pageSize: 10,
   };
@@ -123,7 +123,7 @@ export default function Images() {
   const onSearchModelChange = (
     page: GridPaginationModel,
   ) => {
-    const newSearchModel: UserSearchModel = {
+    const newSearchModel: ImageSearchModel = {
       ...searchModel,
       page: page.page,
       pageSize: page.pageSize,
@@ -133,12 +133,12 @@ export default function Images() {
     }
   };
 
-  // Send an API request to get the users
+  // Send an API request to get the images
   const {
-    data: users,
+    data: images,
     isLoading,
     refetch,
-  } = useApi(APIEndpoint.GET_USERS, undefined, {
+  } = useApi(APIEndpoint.GET_IMAGES_SKELETON, undefined, {
     queryKey: JSON.stringify(searchModel),
     staleTime: -1,
     onError: showFetchError,
@@ -150,22 +150,22 @@ export default function Images() {
     ),
   });
 
-  // User creation handling
-  const [openUserCreate, setOpenUserCreate] = useState(false);
+  // Image creation handling
+  const [openImageCreate, setOpenImageCreate] = useState(false);
   const { snackbar: creationErrorSnackbar, show: showCreationError } =
-    useSnackbar("Impossible de créer l'utilisateur.", "error");
+    useSnackbar("Impossible de créer l'image.", "error");
   const {
     mutate: mutateCreation,
     isError: isCreationError,
     isSuccess: isCreationSuccess,
     reset: resetCreationData,
-  } = useApiMutation(APIEndpoint.CREATE_USER, null, false, {
+  } = useApiMutation(APIEndpoint.CREATE_IMAGE, null, false, {
     invalidateQueries: [JSON.stringify(searchModel)],
   });
-  const createUser = (user: CreateUserRequestDTO) => {
-    const { email, password, roles } = user;
-    mutateCreation({ email, password, roles });
-    setOpenUserCreate(false);
+  const createImage = (image: CreateImageRequestDTO) => {
+    const { name, description, isPublic, imageData } = image;
+    mutateCreation({ name, description, isPublic, imageData });
+    setOpenImageCreate(false);
   };
   if (isCreationError) {
     showCreationError();
@@ -176,10 +176,10 @@ export default function Images() {
   }
 
   // TODO regarder pour update
-  // User update handling
-  const [openUserUpdate, setOpenUserUpdate] = useState(false);
+  // Image update handling
+  const [openImageUpdate, setOpenImageUpdate] = useState(false);
   const { snackbar: updateErrorSnackbar, show: showUpdateError } = useSnackbar(
-    "Impossible de modifier l'utilisateur.",
+    "Impossible de modifier l'image.",
     "error"
   );
   const {
@@ -187,13 +187,13 @@ export default function Images() {
     isError: isUpdateError,
     isSuccess: isUpdateSuccess,
     reset: resetUpdateData,
-  } = useApiMutation(APIEndpoint.UPDATE_USER_ADMIN, null, false, {
+  } = useApiMutation(APIEndpoint.UPDATE_IMAGE, null, false, {
     invalidateQueries: [JSON.stringify(searchModel)],
   });
-  const updateUserAdmin = (user: UpdateUserAdminRequestDTO) => {
-    const { id, email, password, roles } = user;
-    mutateUpdate({ id, email, password, roles });
-    setOpenUserUpdate(false);
+  const updateImageAdmin = (image: UpdateImageRequestDTO) => {
+    const { id, name, description, isPublic } = image;
+    mutateUpdate({ id, name, description, isPublic });
+    setOpenImageUpdate(false);
   };
   if (isUpdateError) {
     showUpdateError();
@@ -205,14 +205,14 @@ export default function Images() {
 
   // Delete handling
   const { mutate: mutateDelete } = useApiMutation(
-    APIEndpoint.DELETE_USER,
+    APIEndpoint.DELETE_IMAGE,
     null,
     false,
     {
       invalidateQueries: [JSON.stringify(searchModel)],
     }
   );
-  const deleteUser = (id: number) => {
+  const deleteImage = (id: number) => {
     mutateDelete({
         id: id,
     });
@@ -221,7 +221,7 @@ export default function Images() {
   return (
     <>
       <Box sx={{ paddingLeft: "5%" }}>
-        <h1>Utilisateurs</h1>
+        <h1>Images</h1>
       </Box>
       <Box
         sx={{
@@ -234,9 +234,9 @@ export default function Images() {
         <Button
           variant="contained"
           sx={{ margin: "10px 0" }}
-          onClick={() => setOpenUserCreate(true)}
+          onClick={() => setOpenImageCreate(true)}
         >
-          Créer un utilisateur
+          Créer une image
         </Button>
       </Box>
       <CenterDiv
@@ -246,9 +246,9 @@ export default function Images() {
         <ServerSideTable
           idField="id"
           columns={tableColumns}
-          rows={users != null ? users.elements : []}
+          rows={images != null ? images.elements : []}
           pageInfo={{
-            maxElements: users != null ? users.maxElements : 0,
+            maxElements: images != null ? images.maxElements : 0,
             page: searchModel.page,
             pageSize: searchModel.pageSize,
           }}
@@ -258,19 +258,19 @@ export default function Images() {
       </CenterDiv>
       {/* Creation modal */}
       <CenteredModal
-        open={openUserCreate}
-        handleClose={() => setOpenUserCreate(false)}
+        open={openImageCreate}
+        handleClose={() => setOpenImageCreate(false)}
         sx={{ padding: "0 10px 10px 10px", width: "clamp(200px, 50%, 500px)" }}
       >
-        <CreateUserForm onSubmit={createUser} />
+        <CreateImageForm onSubmit={createImage} />
       </CenteredModal>
-      {/* Edit user modal */}
+      {/* Edit image modal */}
       <CenteredModal
-        open={openUserUpdate}
-        handleClose={() => setOpenUserUpdate(false)}
+        open={openImageUpdate}
+        handleClose={() => setOpenImageUpdate(false)}
         sx={{ padding: "0 10px 10px 10px", width: "clamp(200px, 50%, 500px)" }}
       >
-        <UpdateUserAdminForm currentUser={selectedUser} onSubmit={updateUserAdmin} />
+        <UpdateImageForm currentImage={selectedImage} onSubmit={updateImageAdmin} />
       </CenteredModal>
       {creationErrorSnackbar}
       {updateErrorSnackbar}

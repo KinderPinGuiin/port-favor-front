@@ -1,0 +1,54 @@
+import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from "@mui/material"
+import { useRef } from "react";
+
+export type CreateImageFormProps = {
+  onSubmit: (createdImage: { name: string, description: string, isPublic: boolean, imageData: unknown }) => void
+}
+
+/**
+ * Form used to create a image.
+ */
+export default function CreateImageForm({ onSubmit }: CreateImageFormProps) {
+  const nameRef = useRef<HTMLInputElement | null>(null);
+  const descriptionRef = useRef<HTMLInputElement | null>(null);
+  const isPublicRef = useRef<HTMLInputElement | null>(null);
+
+  // const [image, setImage] = useState(null);
+
+  // const handleImageUpload = (e) => {
+  //   setImage(e.target.files[0]);
+  // };
+
+  const handleSubmit = () => {
+    onSubmit({
+      name: nameRef.current?.value ?? "",
+      description: descriptionRef.current?.value ?? "",
+      isPublic: isPublicRef.current?.checked ?? true,
+      imageData: null,
+    });
+  };
+
+  return (
+    <>
+      <FormGroup>
+        <h2>Créer une image</h2>
+        <TextField label="Nom" variant="outlined" inputRef={nameRef} style={{ marginBottom: "10px"}}/>
+        <TextField label="Description" variant="outlined" inputRef={descriptionRef}/>
+        <FormControlLabel control={<Checkbox inputRef={isPublicRef} />} label="Publique ?" />
+        {/* <Button style={{ marginBottom: "10px"}}
+          variant="outlined"
+          onClick={handleImageUpload}
+        >
+          Charger l'image
+        </Button> */}
+        <Button 
+          variant="contained"
+          type="submit" 
+          onClick={handleSubmit}
+        >
+          Créer
+        </Button>
+      </FormGroup>
+    </>
+  )
+}
