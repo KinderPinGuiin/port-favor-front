@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button, Menu, MenuItem, useTheme } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router";
 
 /**
@@ -11,7 +11,7 @@ export function DashboardButtonLayout() {
   const theme = useTheme();
   const location = useLocation()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const [open, setOpen] = useState(false);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -49,6 +49,7 @@ export function DashboardButtonLayout() {
         <MenuItem>
         <Link 
           to={"admin/users"} 
+          onClick={() => setOpen(false)}
           style={{
             color: theme.palette.primary.light,
             textDecoration: "none",
@@ -59,6 +60,7 @@ export function DashboardButtonLayout() {
         <MenuItem>
         <Link 
           to={"admin/images"} 
+          onClick={() => setOpen(false)}
           style={{
             color: theme.palette.primary.light,
             textDecoration: "none",
