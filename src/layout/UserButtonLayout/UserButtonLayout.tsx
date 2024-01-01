@@ -3,18 +3,30 @@ import { Button, Menu, MenuItem, useTheme } from "@mui/material";
 import React from "react";
 
 /**
- * Layout adding a logout button when the route isn't "/" and "user/authenticate" and the user is logged in,
+ * Layout adding a logout button when the route isn't "/" and "user/authentication" and the user is logged in,
  * or a login button if the user isn't logged in.
  */
 export function UserButtonLayout() {
   const theme = useTheme();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const [anchorElLogout, setAnchorElLogout] = React.useState<null | HTMLElement>(null);
+  const [anchorElLogin, setAnchorElLogin] = React.useState<null | HTMLElement>(null);
+  const openLogout = Boolean(anchorElLogout);
+  const openLogin = Boolean(anchorElLogin);
+
+  const handleClickLogout = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElLogout(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+
+  const handleClickLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElLogin(event.currentTarget);
+  };
+
+  const handleCloseLogout = () => {
+    setAnchorElLogout(null);
+  };
+
+  const handleCloseLogin = () => {
+    setAnchorElLogin(null);
   };
 
   return (
@@ -24,10 +36,10 @@ export function UserButtonLayout() {
         <>
         <Button
         id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
+        aria-controls={openLogout ? 'basic-menu' : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
+        aria-expanded={openLogout ? 'true' : undefined}
+        onClick={handleClickLogout}
         style={{
           color: theme.palette.primary.light,
         }}>
@@ -35,9 +47,9 @@ export function UserButtonLayout() {
       </Button>
       <Menu
         id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
+        anchorEl={anchorElLogout}
+        open={openLogout}
+        onClose={handleCloseLogout}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
@@ -70,10 +82,10 @@ export function UserButtonLayout() {
         <>
         <Button
         id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
+        aria-controls={openLogin ? 'basic-menu' : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
+        aria-expanded={openLogin ? 'true' : undefined}
+        onClick={handleClickLogin}
         style={{
           color: theme.palette.primary.light,
         }}>
@@ -81,9 +93,9 @@ export function UserButtonLayout() {
       </Button>
       <Menu
         id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
+        anchorEl={anchorElLogin}
+        open={openLogin}
+        onClose={handleCloseLogin}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}

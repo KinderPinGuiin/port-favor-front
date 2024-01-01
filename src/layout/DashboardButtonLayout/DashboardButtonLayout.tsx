@@ -4,7 +4,7 @@ import React from "react";
 import { useLocation } from "react-router";
 
 /**
- * Layout adding a logout button when the route isn't "/" and "user/authenticate" and the user is logged in,
+ * Layout adding a logout button when the route isn't "/" and "user/authentication" and the user is logged in,
  * or a login button if the user isn't logged in.
  */
 export function DashboardButtonLayout() {
@@ -48,7 +48,7 @@ export function DashboardButtonLayout() {
       >
         <MenuItem>
         <Link 
-          to={"portfolio/users"} 
+          to={"admin/users"} 
           style={{
             color: theme.palette.primary.light,
             textDecoration: "none",
@@ -58,7 +58,7 @@ export function DashboardButtonLayout() {
         </MenuItem>
         <MenuItem>
         <Link 
-          to={"portfolio/images"} 
+          to={"admin/images"} 
           style={{
             color: theme.palette.primary.light,
             textDecoration: "none",

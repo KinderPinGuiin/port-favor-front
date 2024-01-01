@@ -20,7 +20,7 @@ export default function Home() {
   }, []);
 
   const onLoginButtonClick = useCallback(() => {
-    navigate("user/authenticate");
+    navigate("user/authentication");
   }, []);
 
   const onLogoutButtonClick = useCallback(() => {
