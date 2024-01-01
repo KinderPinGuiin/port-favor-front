@@ -39,7 +39,7 @@ export default function Home() {
           </Button>
           <Button variant="outlined" onClick={isLoggedIn ? onLogoutButtonClick : onLoginButtonClick} 
             style={{ zIndex: "1", width: "45%" }}>
-            {isLoggedIn ? 'Deconnéxion' : 'Se connecter'}
+            {isLoggedIn ? 'Deconnexion' : 'Se connecter'}
           </Button>
         </Box>
       </TitleContainer>

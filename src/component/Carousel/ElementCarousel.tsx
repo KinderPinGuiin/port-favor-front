@@ -47,7 +47,7 @@ export default function ElementCarousel({
         content: c,
         onClick: () => setGoToSlide(i),
       })),
-    []
+    [children]
   );
 
   return (

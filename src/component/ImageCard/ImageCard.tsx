@@ -4,24 +4,24 @@ import { useTheme } from "@mui/material";
 import { useDownloadImage } from "@hook/image/useDownloadImage";
 import { Snackbar } from '@mui/material';
 import { IconButton } from '@mui/material';
+import ImageResponseDTO from "@api/dto/response/image/ImageResponseDTO";
+import APIEndpoint from "@api/endpoint/APIEndpoint";
 
 export type ImageCardProps = {
-  image: {
-    src: string;
-    name: string;
-    description: string;
-  };
+  image: ImageResponseDTO;
 };
 
 export default function ImageCard({ image }: ImageCardProps) {
   const theme = useTheme();
-  const { src, name, description } = image;
+  const { path, name, description } = image;
   const defaultName = "Nom de l'image";
-  const defaultDescription = "Description de l'image Description de l'imageDescription de l'image";
+  const defaultDescription = "Description de l'image";
+  const token = localStorage.getItem("token");
+  const url = APIEndpoint.GET_IMAGE_CONTENT.toApiUrl().replace("{name}", path) + (token != null ? "?token=" + token : "")
 
   const { downloadImage, error } = useDownloadImage();
   const handleDownload = async () => {
-    await downloadImage(src, name || 'image');
+    await downloadImage(url, name || 'image');
   };
 
   return (
@@ -36,7 +36,7 @@ export default function ImageCard({ image }: ImageCardProps) {
         <Grid item xs={8}>
           <CardMedia
             component="img"
-            image={src}
+            image={url}
             alt={name || defaultName}
             style={{
                 width: '100%',

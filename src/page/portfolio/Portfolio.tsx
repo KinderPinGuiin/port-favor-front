@@ -4,62 +4,51 @@ import ElementGrid from "@component/ElementGrid/ElementGrid";
 import CenteredModal from "@component/CenteredModal/CenteredModal";
 import { useEffect, useState } from "react";
 import ImageCard from "@component/ImageCard/ImageCard";
+import ImageResponseDTO from "@api/dto/response/image/ImageResponseDTO";
+import useApi from "@hook/api/useApi";
+import APIEndpoint from "@api/endpoint/APIEndpoint";
+import { fill } from "@utils/list-utils";
+import { Box } from "@mui/material";
 
 export default function PublicPortfolio() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<{src: string, alt: string} | null>(null);
+  const [selectedImage, setSelectedImage] = useState<ImageResponseDTO | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [images, setImages] = useState<ImageResponseDTO[]>([]);
 
   useEffect(() => {
     setIsLoggedIn(Boolean(localStorage.getItem('token')));
   }, []);
 
-  const handleImageClick = (image: {src: string, alt: string}) => {
+  const handleImageClick = (image: ImageResponseDTO) => {
     setSelectedImage(image);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-   };
+  };
 
-  const carouselImages = [
-    { src: "https://picsum.photos/800", alt: "Image 1" },
-    { src: "https://picsum.photos/800", alt: "Image 2" },
-    { src: "https://picsum.photos/800", alt: "Image 3" },
-  ];
+  const token = localStorage.getItem("token");
 
-  const gridImages = [
-    { src: "https://picsum.photos/800", alt: "Image 1" },
-    { src: "https://picsum.photos/800", alt: "Image 2" },
-    { src: "https://picsum.photos/800", alt: "Image 3" },
-    { src: "https://picsum.photos/800", alt: "Image 4" },
-    { src: "https://picsum.photos/800", alt: "Image 5" },
-    { src: "https://picsum.photos/800", alt: "Image 6" },
-    { src: "https://picsum.photos/800", alt: "Image 7" },
-    { src: "https://picsum.photos/800", alt: "Image 8" },
-    { src: "https://picsum.photos/800", alt: "Image 9" },
-    { src: "https://picsum.photos/800", alt: "Image 10" },
-    { src: "https://picsum.photos/800", alt: "Image 11" },
-    { src: "https://picsum.photos/800", alt: "Image 12" },
-    { src: "https://picsum.photos/800", alt: "Image 13" },
-  ];
+  // Get the images skeletons
+  const { data } = useApi(APIEndpoint.GET_IMAGES_SKELETON);
+  useEffect(() => {
+    if (data) {
+      setImages(data.elements);
+    }
+  }, [data])
 
-  const privateGridImages = [
-    { src: "https://picsum.photos/800", alt: "Image 1" },
-    { src: "https://picsum.photos/800", alt: "Image 2" },
-    { src: "https://picsum.photos/800", alt: "Image 3" },
-    { src: "https://picsum.photos/800", alt: "Image 4" },
-    { src: "https://picsum.photos/800", alt: "Image 5" },
-    { src: "https://picsum.photos/800", alt: "Image 6" },
-    { src: "https://picsum.photos/800", alt: "Image 7" },
-    { src: "https://picsum.photos/800", alt: "Image 8" },
-    { src: "https://picsum.photos/800", alt: "Image 9" },
-    { src: "https://picsum.photos/800", alt: "Image 10" },
-    { src: "https://picsum.photos/800", alt: "Image 11" },
-    { src: "https://picsum.photos/800", alt: "Image 12" },
-    { src: "https://picsum.photos/800", alt: "Image 13" },
-  ];
+  const carouselImages = images.length < 3 
+    ? fill(
+      images,
+      {id: 0, description: "Prochainement", name: "Prochainement", mime: "image/png", pub: true, path: "" },
+      images.length,
+      2
+    ) 
+    : images.slice(-3).reverse();
+  const publicImages = images.filter(image => image.pub);
+  const privateImages = images.filter(image => !image.pub);
 
   return (
     <>
@@ -77,44 +66,55 @@ export default function PublicPortfolio() {
           Nos dernières publications
         </h1>
         <CenterDiv sx={{ height: "90vh" }}>
-          <ElementCarousel style={{ height: "80%", width: "60%" }}>
+          <ElementCarousel style={{ height: "80%", width: "60%", cursor: "pointer" }}>
             {carouselImages.map((image, i) => (
-              <img src={image.src} alt={image.alt} key={i} onDoubleClick={() => handleImageClick(image)}/>
+              <img src={image.path == "" ? "" : APIEndpoint.GET_IMAGE_CONTENT.toApiUrl().replace("{name}", image.path) + (token != null ? "?token=" + token : "")} 
+                alt={image.description}
+                key={i}
+                onDoubleClick={image.path == "" ? () => 0 : () => handleImageClick(image)}
+                />
             ))}
           </ElementCarousel>
         </CenterDiv>
       </section>
-      {/* Element grid section */}
-      <section style={{ marginBottom: "70px" }}>
+      {/* Public images grid */}
+      <section>
         <h1
           style={{
             textAlign: "center",
-            height: "10vh",
             margin: 0,
-            paddingBottom: "80px",
+            padding: "20px",
             fontSize: "2.5em",
           }}
         >
-          Nos publications publiques
+          Nos publications
         </h1>
-        <ElementGrid
-          elementStyle={{ width: "20%", aspectRatio: "1/1" }}
-          animate
-        >
-          {gridImages.map((image, i) => (
-            <img src={image.src} alt={image.alt} key={i} onDoubleClick={() => handleImageClick(image)}/>
-          ))}
-        </ElementGrid>
+        {
+          publicImages.length == 0 
+          ? <CenterDiv>Aucune publication publique pour le moment.</CenterDiv> 
+          : <ElementGrid
+              elementStyle={{ width: "20%", aspectRatio: "1/1" }}
+              animate
+            >
+              {publicImages.map((image, i) => (
+                <img 
+                  src={APIEndpoint.GET_IMAGE_CONTENT.toApiUrl().replace("{name}", image.path)} 
+                  alt={image.description} 
+                  key={i} 
+                  onDoubleClick={() => handleImageClick(image)}
+                  />
+              ))}
+            </ElementGrid>
+        }
       </section>
-      {/* Element grid section */}
-      { isLoggedIn &&
-      <section style={{ marginBottom: "70px" }}>
+      {/* Private images grid */}
+      { isLoggedIn && privateImages.length > 0 &&
+      <section>
         <h1
           style={{
             textAlign: "center",
-            height: "10vh",
             margin: 0,
-            paddingBottom: "80px",
+            padding: "20px",
             fontSize: "2.5em",
           }}
         >
@@ -124,14 +124,20 @@ export default function PublicPortfolio() {
           elementStyle={{ width: "20%", aspectRatio: "1/1" }}
           animate
         >
-          {privateGridImages.map((image, i) => (
-            <img src={image.src} alt={image.alt} key={i} onDoubleClick={() => handleImageClick(image)}/>
+          {privateImages.map((image, i) => (
+            <img 
+              src={APIEndpoint.GET_IMAGE_CONTENT.toApiUrl().replace("{name}", image.path) + (token != null ? "?token=" + token : "")} 
+              alt={image.description} 
+              key={i} 
+              onDoubleClick={() => handleImageClick(image)}
+              />
           ))}
         </ElementGrid>
       </section>
       }
+      <Box sx={{ marginBottom: "70px" }}></Box>
       <CenteredModal open={isModalOpen} handleClose={() => closeModal()} sx={{ }}>
-      {selectedImage && <ImageCard image={{ ...selectedImage, name: "", description: "" }} />}
+        {selectedImage && <ImageCard image={selectedImage} />}
       </CenteredModal>
     </>
   );
