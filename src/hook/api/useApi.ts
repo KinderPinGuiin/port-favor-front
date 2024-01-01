@@ -42,7 +42,7 @@ export default function useApi<T, U>(
     async () => {
       const response = await fetch(finalURI, {
         headers: {
-          Authorization: token ? `${token}` : '',
+          Authorization: token ? `Bearer ${token}` : '',
           ...options?.headers,
         },
         credentials: options?.credentialsPolicy ?? "include" 

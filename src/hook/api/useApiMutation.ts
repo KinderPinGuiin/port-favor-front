@@ -35,7 +35,7 @@ export default function useApiMutation<T, U>(
         body: JSON.stringify(requestData ?? data),
         headers: {
           "Content-Type": options?.headers?.["Content-Type"] ?? "application/json",
-          Authorization: token ? `${token}` : '',
+          Authorization: token ? `Bearer ${token}` : '',
           ...options?.headers,
         },
         credentials: options?.credentialsPolicy ?? "include",
