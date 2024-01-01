@@ -33,12 +33,18 @@ export default function useApi<T, U>(
     );
   });
 
+  // Get the token from localStorage
+  const token = localStorage.getItem("token");
+
   // Send the request and returns the useQuery hook result
   return useQuery(
     options?.queryKey ?? endpoint.uri, 
     async () => {
       const response = await fetch(finalURI, {
-        headers: options?.headers, 
+        headers: {
+          Authorization: token ? `${token}` : '',
+          ...options?.headers,
+        },
         credentials: options?.credentialsPolicy ?? "include" 
       });
 

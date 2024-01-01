@@ -20,9 +20,9 @@ export default class APIEndpoint<T, U> {
   public static readonly LOGIN = new APIEndpoint("/login", "POST", AuthenticationRequestDTO, AuthenticationResponseDTO);
   public static readonly REGISTER = new APIEndpoint("/register", "POST", RegistrationRequestDTO, RegistrationResponseDTO);
   public static readonly GET_USERS = new APIEndpoint("/user/get-all", "GET", null, SearchResultResponseDTO<UserResponseDTO>);
-  public static readonly CREATE_USER = new APIEndpoint("/deliverer/create", "POST", CreateUserRequestDTO, UserResponseDTO);
-  public static readonly UPDATE_USER = new APIEndpoint("/deliverer/update", "POST", UpdateUserRequestDTO, UserResponseDTO);
-  public static readonly DELETE_USER = new APIEndpoint("/deliverer/delete", "DELETE", null, UserResponseDTO);
+  public static readonly CREATE_USER = new APIEndpoint("/user/create", "POST", CreateUserRequestDTO, UserResponseDTO);
+  public static readonly UPDATE_USER = new APIEndpoint("/user/update", "POST", UpdateUserRequestDTO, UserResponseDTO);
+  public static readonly DELETE_USER = new APIEndpoint("/user/delete", "DELETE", null, UserResponseDTO);
 
   /**
    * @param uri          The endpoint's URI.

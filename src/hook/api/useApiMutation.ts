@@ -23,6 +23,9 @@ export default function useApiMutation<T, U>(
     throw `Invalid endpoint method for useApiMutation (${endpoint.method}), to perform GET calls, use the useApi hook.`;
   }
 
+  // Get the token from localStorage
+  const token = localStorage.getItem("token");
+  
   // Setup the mutation
   const queryClient = useQueryClient();
   const mutation = useMutation(
@@ -32,6 +35,7 @@ export default function useApiMutation<T, U>(
         body: JSON.stringify(requestData ?? data),
         headers: {
           "Content-Type": options?.headers?.["Content-Type"] ?? "application/json",
+          Authorization: token ? `${token}` : '',
           ...options?.headers,
         },
         credentials: options?.credentialsPolicy ?? "include",
