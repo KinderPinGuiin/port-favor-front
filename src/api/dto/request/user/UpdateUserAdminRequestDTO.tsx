@@ -12,7 +12,7 @@ export default class UpdateUserAdminRequestDTO {
      * @param newRoles     The new user's roles.
      */
     constructor(
-      public readonly id:    Int32Array,
+      public readonly id:    number,
       public readonly newLogin: string,
       public readonly newPassword: string,
       public readonly newRoles: RoleDTO[],

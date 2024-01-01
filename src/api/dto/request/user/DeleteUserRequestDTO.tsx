@@ -7,7 +7,7 @@ export default class DeleteUserRequestDTO {
      * @param id    The user's id.
      */
     constructor(
-        public readonly id:    Int32Array,
+        public readonly id:    number,
     ) {}
   
   }

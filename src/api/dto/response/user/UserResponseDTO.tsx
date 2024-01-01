@@ -11,7 +11,7 @@ export default class UserResponseDTO {
    * @param roles The user's roles.
    */
   constructor(
-    public readonly id:    Int32Array,
+    public readonly id:    number,
     public readonly login: string,
     public readonly roles: RoleDTO[],
   ) {}

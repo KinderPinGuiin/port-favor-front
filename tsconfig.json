@@ -24,12 +24,14 @@
     "baseUrl": "./src",
     "paths": {
       "@api/*": ["api/*"],
+      "@dto/*": ["api/dto/*"],
       "@assets/*": ["assets/*"],
       "@component/*": ["component/*"],
-      "@dto/*": ["api/dto/*"],
       "@hook/*": ["hook/*"],
+      "@layout/*": ["layout/*"],
       "@page/*": ["page/*"],
       "@type/*": ["type/*"],
+      "@utils/*": ["utils/*"],
     }
   },
   "include": ["src"],

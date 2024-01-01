@@ -9,6 +9,7 @@ import Logout from "@page/user/Logout";
 import NavbarLayout from "layout/NavbarLayout/NavbarLayout";
 import Modify from "@page/user/Modify";
 import Portfolio from "@page/portfolio/Portfolio";
+import Users from "@page/admin/Users";
 
 function App() {
   // Defining all the application routes
@@ -34,6 +35,10 @@ function App() {
             {
               path: "/user/modify",
               element: <Modify />
+            },
+            {
+              path: "/admin/users",
+              element: <Users />
             }
           ]
         },
