@@ -25,14 +25,14 @@ export default function useApiMutation<T, U>(
 
   // Get the token from localStorage
   const token = localStorage.getItem("token");
-  
+
   // Setup the mutation
   const queryClient = useQueryClient();
   const mutation = useMutation(
     async (data) => {
       const response = await fetch(import.meta.env.VITE_API_HOST + endpoint.uri, {
         method: endpoint.method,
-        body: JSON.stringify(requestData ?? data),
+        body: options?.formData ? requestData ?? data : JSON.stringify(requestData ?? data),
         headers: {
           "Content-Type": options?.headers?.["Content-Type"] ?? "application/json",
           Authorization: token ? `Bearer ${token}` : '',

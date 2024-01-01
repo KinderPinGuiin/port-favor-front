@@ -46,6 +46,8 @@ type APIOptions = {
    * The amount of time a request must be retried before returning the real error.
    */
   retry?: number,
+
+  formData?: boolean,
 }
 
 export default APIOptions;
