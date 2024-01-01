@@ -1,7 +1,7 @@
 /**
  * Image response data.
  */
-export default class ImageResponsetDTO {
+export default class ImageResponseDTO {
     /**
      * @param id              The image's id.
      * @param name            The image's name.
