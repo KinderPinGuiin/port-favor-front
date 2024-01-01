@@ -7,7 +7,7 @@ export default class UpdateUserAdminRequestDTO {
   
     /**
      * @param id        The user's id.
-     * @param newLogin     The new user's login.
+     * @param newLogin     The new user's email.
      * @param newPassword  The new user's password.
      * @param newRoles     The new user's roles.
      */

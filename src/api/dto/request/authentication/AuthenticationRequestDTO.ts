@@ -4,11 +4,11 @@
 export default class AuthenticationRequestDTO {
   
   /**
-   * @param login    The user's login.
+   * @param email    The user's email.
    * @param password The user's password.
    */
   constructor(
-    public readonly login: string,
+    public readonly email: string,
     public readonly password: string,
   ) {}
 

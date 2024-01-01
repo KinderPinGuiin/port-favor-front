@@ -14,7 +14,7 @@ import RegistrationRequestDTO from "@api/dto/request/authentication/Registration
 export default function Login() {
  const navigate = useNavigate();
  const [errorMessage, setErrorMessage] = useState("");
- const loginRef = useRef<HTMLInputElement | null>(null);
+ const emailRef = useRef<HTMLInputElement | null>(null);
  const passwordRef = useRef<HTMLInputElement | null>(null);
  const [formMode, setFormMode] = useState<'login' | 'register'>('login');
  const { mutate, data: data, isLoading: isLoading, isError: isError, error: apiError } =
@@ -24,19 +24,18 @@ export default function Login() {
    e.preventDefault();
 
    // Get form values
-   const login = loginRef.current?.value ?? "";
+   const email = emailRef.current?.value ?? "";
    const password = passwordRef.current?.value ?? "";
 
    // Call API
-   mutate(formMode === 'login' ? new AuthenticationRequestDTO(login, password): new RegistrationRequestDTO(login, password));
+   mutate(formMode === 'login' ? new AuthenticationRequestDTO(email, password): new RegistrationRequestDTO(email, password));
  }, [formMode]);
 
  // Handling authentication
  useEffect(() => {
    if (data && !localStorage.getItem('token')) {
      localStorage.setItem("token", data.token);
-    //  TODO corriger problem de mixe username/login
-     localStorage.setItem("login", data.email);
+     localStorage.setItem("email", data.email);
      localStorage.setItem("roles", JSON.stringify(data.roles));
      navigate("/");
    } else if (isError && apiError) {
@@ -57,7 +56,7 @@ export default function Login() {
        </div>
        <FormContainer style={{ width: "100%" }} method="POST" 
         action={formMode === 'login' ? APIEndpoint.LOGIN.toApiUrl() : APIEndpoint.REGISTER.toApiUrl()} onSubmit={sendRequest}>
-         <TextField label="Adresse mail" variant="outlined" inputRef={loginRef} />
+         <TextField label="Adresse mail" variant="outlined" inputRef={emailRef} />
          <TextField type="password" label="Mot de passe" variant="outlined" inputRef={passwordRef} />
          <Button variant="contained" type="submit" disabled={isLoading}>
            {isLoading ? <CircularProgress size={25} /> : formMode === 'login' ? 'Se connecter' : "S'inscrire"}

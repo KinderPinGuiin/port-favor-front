@@ -3,14 +3,14 @@ import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from "@mui/m
 import { useRef } from "react";
 
 export type CreateUserFormProps = {
-  onSubmit: (createdUser: { login: string, password: string, roles: RoleDTO[] }) => void
+  onSubmit: (createdUser: { email: string, password: string, roles: RoleDTO[] }) => void
 }
 
 /**
  * Form used to create a user.
  */
 export default function CreateUserForm({ onSubmit }: CreateUserFormProps) {
-  const loginRef = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const isAdminRef = useRef<HTMLInputElement | null>(null);
   const isPrivateRef = useRef<HTMLInputElement | null>(null);
@@ -30,7 +30,7 @@ export default function CreateUserForm({ onSubmit }: CreateUserFormProps) {
     }
 
     onSubmit({
-      login: loginRef.current?.value ?? "",
+      email: emailRef.current?.value ?? "",
       password: passwordRef.current?.value ?? "",
       roles: roles,
     });
@@ -40,7 +40,7 @@ export default function CreateUserForm({ onSubmit }: CreateUserFormProps) {
     <>
       <FormGroup>
         <h2>Créer un utilisateur</h2>
-        <TextField label="Adresse mail" variant="outlined" inputRef={loginRef} style={{ marginBottom: "10px"}}/>
+        <TextField label="Adresse mail" variant="outlined" inputRef={emailRef} style={{ marginBottom: "10px"}}/>
         <TextField type="password" label="Mot de passe" variant="outlined" inputRef={passwordRef}/>
         <FormControlLabel control={<Checkbox inputRef={isAdminRef} />} label="Administrateur ?" />
         <FormControlLabel control={<Checkbox inputRef={isPrivateRef} />} label="Accès privé ?" />

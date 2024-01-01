@@ -7,12 +7,12 @@ export default class UserResponseDTO {
 
   /**
    * @param id    The user's id.
-   * @param login The user's login.
+   * @param email The user's email.
    * @param roles The user's roles.
    */
   constructor(
     public readonly id:    number,
-    public readonly login: string,
+    public readonly email: string,
     public readonly roles: RoleDTO[],
   ) {}
 

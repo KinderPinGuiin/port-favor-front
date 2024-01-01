@@ -13,22 +13,22 @@ export default function UpdateUserForm({
   currentUser,
   onSubmit,
 }: UpdateUserFormProps) {
-  const loginRef = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <>
       <FormGroup>
         <h2>Editer un utilisateur</h2>
-        <TextField label="Adresse mail" variant="outlined" inputRef={loginRef}
-        defaultValue={currentUser.login}  style={{ marginBottom: "10px"}}/>
+        <TextField label="Adresse mail" variant="outlined" inputRef={emailRef}
+        defaultValue={currentUser.email}  style={{ marginBottom: "10px"}}/>
         <TextField type="password" label="Mot de passe" variant="outlined" inputRef={passwordRef} />
         <Button 
           variant="contained"
           type="submit" 
           onClick={() => onSubmit({ 
             id: currentUser.id,
-            newLogin: loginRef.current?.value ?? "", 
+            newLogin: emailRef.current?.value ?? "", 
             newPassword: passwordRef.current?.value ?? "",
             newRoles: currentUser.roles
           })}

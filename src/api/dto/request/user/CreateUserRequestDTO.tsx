@@ -6,12 +6,12 @@ import RoleDTO from "@api/dto/response/role/RoleDTO";
 export default class CreateUserRequestDTO {
   
     /**
-     * @param login     The new user's login.
+     * @param email     The new user's email.
      * @param password  The new user's password.
      * @param roles     The new user's roles.
      */
     constructor(
-      public readonly login: string,
+      public readonly email: string,
       public readonly password: string,
       public readonly roles: RoleDTO[],
     ) {}
