@@ -1,5 +1,3 @@
-import RoleDTO from "@api/dto/response/role/RoleDTO";
-
 /**
  * Request sent to update a user as an admin.
  */
@@ -7,15 +5,15 @@ export default class UpdateUserAdminRequestDTO {
   
     /**
      * @param id        The user's id.
-     * @param newLogin     The new user's email.
-     * @param newPassword  The new user's password.
+     * @param email     The new user's email.
+     * @param password  The new user's password.
      * @param newRoles     The new user's roles.
      */
     constructor(
       public readonly id:    number,
-      public readonly newLogin: string,
-      public readonly newPassword: string,
-      public readonly newRoles: RoleDTO[],
+      public readonly email: string,
+      public readonly password: string,
+      public readonly roles: string[],
     ) {}
   
   }

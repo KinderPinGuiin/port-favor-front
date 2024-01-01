@@ -4,8 +4,8 @@
 export default class UpdateUserPasswordRequestDTO {
   
     /**
-     * @param password  The user's old password.
-     * @param password  The user's new password.
+     * @param oldPassword  The user's old password.
+     * @param newPassword  The user's new password.
      */
     constructor(
       public readonly oldPassword: string,

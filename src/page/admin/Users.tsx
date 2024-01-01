@@ -46,7 +46,7 @@ export default function Users() {
   const [selectedUser, setSelectedUser] =
     useState<UserResponseDTO>({
       id: 0,
-      email: "",
+      login: "",
       roles: [],
     });
   const tableColumns: GridColDef[] = [
@@ -189,11 +189,7 @@ export default function Users() {
     invalidateQueries: [JSON.stringify(searchModel)],
   });
   const createUser = (user: CreateUserRequestDTO) => {
-    // TODO regarder cette histoire de roleDTO
-    // eslint-disable-next-line prefer-const
-    let { email, password, roles } = user;
-    const roleNames: string[] = roles.map(role => role.name);
-    roles = roleNames; // Reassigning 'roles' with role names
+    const { email, password, roles } = user;
     mutateCreation({ email, password, roles });
     setOpenUserCreate(false);
   };

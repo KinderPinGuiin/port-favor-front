@@ -4,10 +4,10 @@
 export default class UpdateUserPasswordRequestDTO {
   
     /**
-     * @param password  The user's new email.
+     * @param newEmail  The user's new email.
      */
     constructor(
-      public readonly newLogin: string,
+      public readonly newEmail: string,
     ) {}
   
   }

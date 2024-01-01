@@ -3,7 +3,7 @@ import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from "@mui/m
 import { useRef } from "react";
 
 export type CreateUserFormProps = {
-  onSubmit: (createdUser: { email: string, password: string, roles: RoleDTO[] }) => void
+  onSubmit: (createdUser: { email: string, password: string, roles: string[] }) => void
 }
 
 /**
@@ -20,13 +20,13 @@ export default function CreateUserForm({ onSubmit }: CreateUserFormProps) {
     const isPrivate = isPrivateRef.current?.checked ?? false;
     let roles;
     if (isAdmin && isPrivate) {
-      roles = [new RoleDTO("USER"), new RoleDTO("PRIVATE_USER"), new RoleDTO("ADMIN")];
+      roles = ["USER", "PRIVATE_USER", "ADMIN"];
     } else if (isAdmin) {
-      roles = [new RoleDTO("USER"), new RoleDTO("ADMIN")];
+      roles = ["USER", "ADMIN"];
     } else if (isPrivate) {
-      roles = [new RoleDTO("USER"), new RoleDTO("PRIVATE_USER")];
+      roles = ["USER", "PRIVATE_USER"];
     } else {
-      roles = [new RoleDTO("USER")];
+      roles = ["USER"];
     }
 
     onSubmit({
