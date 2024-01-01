@@ -1,8 +1,8 @@
 import { Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material"
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 export type CreateImageFormProps = {
-  onSubmit: (createdImage: { name: string, description: string, isPublic: boolean, imageData: unknown }) => void
+  onSubmit: (createdImage: { name: string, description: string, isPublic: boolean, imageData: File }) => void
 }
 
 /**
@@ -12,12 +12,12 @@ export default function CreateImageForm({ onSubmit }: CreateImageFormProps) {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
   const isPublicRef = useRef<HTMLInputElement | null>(null);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
   const [fileName, setFileName] = useState("");
 
-  const handleImageUpload = (e) => {
-    setImage(e.target.files[0]);
-    setFileName(e.target.files[0].name);
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    setImage(e.target.files![0]);
+    setFileName(e.target.files![0].name);
   };
 
   const handleSubmit = () => {
@@ -25,7 +25,7 @@ export default function CreateImageForm({ onSubmit }: CreateImageFormProps) {
       name: nameRef.current?.value ?? "",
       description: descriptionRef.current?.value ?? "",
       isPublic: isPublicRef.current?.checked ?? true,
-      imageData: image,
+      imageData: image!,
     });
   };
 

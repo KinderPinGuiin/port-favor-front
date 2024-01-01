@@ -9,7 +9,6 @@ import CreateUserRequestDTO from "@api/dto/request/user/CreateUserRequestDTO";
 import UpdateUserRequestDTO from "@api/dto/request/user/UpdateUserRequestDTO";
 import UpdateUserAdminRequestDTO from "@api/dto/request/user/UpdateUserAdminRequestDTO";
 import ImageResponseDTO from "@api/dto/response/image/ImageResponseDTO";
-import CreateImageRequestDTO from "@api/dto/request/image/CreateImageRequestDTO";
 import UpdateImageRequestDTO from "@api/dto/request/image/UpdateImageRequestDTO";
 import UpdateUserPasswordRequestDTO from "@api/dto/request/user/UpdateUserRequestDTO";
 

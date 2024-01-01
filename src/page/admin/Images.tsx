@@ -41,7 +41,7 @@ export default function Images() {
       id: 0,
       name: "",
       description: "",
-      isPublic: true,
+      pub: true,
       mime: "",
       path: "",
     });
@@ -77,7 +77,7 @@ export default function Images() {
       filterable: false,
     },
     {
-      field: "public",
+      field: "pub",
       headerName: "Est publique",
       flex: 1,
       type: "boolean",
