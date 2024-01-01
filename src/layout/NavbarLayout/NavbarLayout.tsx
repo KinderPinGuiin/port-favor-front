@@ -10,7 +10,6 @@ export default function NavbarLayout() {
 
   return (
     <>
-    {/* TODO regarder pourquoi la barre disparait après un rechargement de page */}
       {
         <Stack direction="row" spacing={1} justifyContent="center" alignItems="center" sx={{
           position: "fixed", 

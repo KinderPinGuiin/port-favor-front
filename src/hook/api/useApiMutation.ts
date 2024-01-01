@@ -28,13 +28,14 @@ export default function useApiMutation<T, U>(
 
   // Setup the mutation
   const queryClient = useQueryClient();
+  const contentTypeHeader: Record<string,string> = options?.formData ? {} : { "Content-Type": options?.headers?.["Content-Type"] ?? "application/json" };
   const mutation = useMutation(
     async (data) => {
       const response = await fetch(import.meta.env.VITE_API_HOST + endpoint.uri, {
         method: endpoint.method,
         body: options?.formData ? requestData ?? data : JSON.stringify(requestData ?? data),
         headers: {
-          "Content-Type": options?.headers?.["Content-Type"] ?? "application/json",
+          ...contentTypeHeader,
           Authorization: token ? `Bearer ${token}` : '',
           ...options?.headers,
         },

@@ -1,5 +1,5 @@
-import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from "@mui/material"
-import { useRef } from "react";
+import { Button, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material"
+import { useRef, useState } from "react";
 
 export type CreateImageFormProps = {
   onSubmit: (createdImage: { name: string, description: string, isPublic: boolean, imageData: unknown }) => void
@@ -12,19 +12,20 @@ export default function CreateImageForm({ onSubmit }: CreateImageFormProps) {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
   const isPublicRef = useRef<HTMLInputElement | null>(null);
+  const [image, setImage] = useState(null);
+  const [fileName, setFileName] = useState("");
 
-  // const [image, setImage] = useState(null);
-
-  // const handleImageUpload = (e) => {
-  //   setImage(e.target.files[0]);
-  // };
+  const handleImageUpload = (e) => {
+    setImage(e.target.files[0]);
+    setFileName(e.target.files[0].name);
+  };
 
   const handleSubmit = () => {
     onSubmit({
       name: nameRef.current?.value ?? "",
       description: descriptionRef.current?.value ?? "",
       isPublic: isPublicRef.current?.checked ?? true,
-      imageData: null,
+      imageData: image,
     });
   };
 
@@ -35,12 +36,20 @@ export default function CreateImageForm({ onSubmit }: CreateImageFormProps) {
         <TextField label="Nom" variant="outlined" inputRef={nameRef} style={{ marginBottom: "10px"}}/>
         <TextField label="Description" variant="outlined" inputRef={descriptionRef}/>
         <FormControlLabel control={<Checkbox inputRef={isPublicRef} />} label="Publique ?" />
-        {/* <Button style={{ marginBottom: "10px"}}
+        <Button style={{ marginBottom: "10px"}}
           variant="outlined"
-          onClick={handleImageUpload}
+          component="label"
         >
           Charger l'image
-        </Button> */}
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageUpload}
+            hidden
+          />
+        </Button>
+        <Typography style={{ marginBottom: "10px"}}>{fileName}</Typography >
         <Button 
           variant="contained"
           type="submit" 

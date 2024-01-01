@@ -11,6 +11,7 @@ import UpdateUserAdminRequestDTO from "@api/dto/request/user/UpdateUserAdminRequ
 import ImageResponseDTO from "@api/dto/response/image/ImageResponseDTO";
 import CreateImageRequestDTO from "@api/dto/request/image/CreateImageRequestDTO";
 import UpdateImageRequestDTO from "@api/dto/request/image/UpdateImageRequestDTO";
+import UpdateUserPasswordRequestDTO from "@api/dto/request/user/UpdateUserRequestDTO";
 
 /**
  * Class containing the API endpoints metadata (URI, request type...). This class also contains all the existing API 
@@ -25,14 +26,15 @@ export default class APIEndpoint<T, U> {
   public static readonly REGISTER = new APIEndpoint("/register", "POST", RegistrationRequestDTO, RegistrationResponseDTO);
   public static readonly GET_USERS = new APIEndpoint("/user/get-all", "GET", null, SearchResultResponseDTO<UserResponseDTO>);
   public static readonly CREATE_USER = new APIEndpoint("/user/create", "POST", CreateUserRequestDTO, UserResponseDTO);
-  public static readonly UPDATE_USER = new APIEndpoint("/user/update", "POST", UpdateUserRequestDTO, UserResponseDTO);
   public static readonly UPDATE_USER_ADMIN = new APIEndpoint("/user/update-admin", "POST", UpdateUserAdminRequestDTO, UserResponseDTO);
+  public static readonly UPDATE_USER_EMAIL = new APIEndpoint("/user/update", "POST", UpdateUserRequestDTO, UserResponseDTO);
+  public static readonly UPDATE_USER_PASSWORD = new APIEndpoint("/user/update-password", "POST", UpdateUserPasswordRequestDTO, UserResponseDTO);
   public static readonly DELETE_USER = new APIEndpoint("/user/delete", "DELETE", null, UserResponseDTO);
 
   public static readonly GET_IMAGES_SKELETON = new APIEndpoint("/image/get-skeleton", "GET", null, SearchResultResponseDTO<ImageResponseDTO>);
   public static readonly GET_IMAGE_SKELETON = new APIEndpoint("/image/get-skeleton/{name}", "GET", null, ImageResponseDTO);
   public static readonly GET_IMAGE_CONTENT = new APIEndpoint("/image/get/{name}", "GET", null, SearchResultResponseDTO<ImageResponseDTO>);
-  public static readonly CREATE_IMAGE = new APIEndpoint("/image/create", "POST", CreateImageRequestDTO, ImageResponseDTO);
+  public static readonly CREATE_IMAGE = new APIEndpoint("/image/create", "POST", FormData, ImageResponseDTO);
   public static readonly UPDATE_IMAGE = new APIEndpoint("/image/update", "POST", UpdateImageRequestDTO, ImageResponseDTO);
   public static readonly DELETE_IMAGE = new APIEndpoint("/image/delete", "DELETE", null, ImageResponseDTO);
 

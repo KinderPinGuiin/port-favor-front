@@ -2,7 +2,6 @@ import React from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "@page/home/Home";
 import Authentication from "@page/user/Authentication";
-import MustBeLoggedInRoute from "@component/MustBeLoggedInRoute/MustBeLoggedInRoute";
 import MustBeLoggedOutRoute from "@component/MustBeLoggedOutRoute/MustBeLoggedOutRoute";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Logout from "@page/user/Logout";
@@ -11,6 +10,8 @@ import Modify from "@page/user/Modify";
 import Portfolio from "@page/portfolio/Portfolio";
 import Users from "@page/admin/Users";
 import Images from "@page/admin/Images";
+import MustBeLoggedInRoute from "@component/MustBeLoggedInRoute/MustBeLoggedInRoute";
+import MustBeAdminRoute from "@component/MustBeAdminRoute.tsx/MustBeAdminRoute";
 
 function App() {
   // Defining all the application routes
@@ -33,10 +34,11 @@ function App() {
               path: "/user/logout",
               element: <Logout />
             },
-            {
-              path: "/user/modify",
-              element: <Modify />
-            },
+          ]
+        },
+        {
+          element: <MustBeAdminRoute />,
+          children: [
             {
               path: "/admin/users",
               element: <Users />
@@ -44,6 +46,15 @@ function App() {
             {
               path: "/admin/images",
               element: <Images />
+            }
+          ]
+        },
+        {
+          element: <MustBeAdminRoute />,
+          children: [
+            {
+              path: "/user/modify",
+              element: <Modify />
             }
           ]
         },

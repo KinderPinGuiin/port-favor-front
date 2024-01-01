@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button, Menu, MenuItem, useTheme } from "@mui/material";
 import React from "react";
-import { useLocation } from "react-router";
 
 /**
  * Layout adding a logout button when the route isn't "/" and "user/authentication" and the user is logged in,
@@ -9,9 +8,15 @@ import { useLocation } from "react-router";
  */
 export function DashboardButtonLayout() {
   const theme = useTheme();
-  const location = useLocation()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const rolesJson = localStorage.getItem("roles");
+  let roles = [];
+  if (rolesJson) {
+   roles = JSON.parse(rolesJson);
+  }
+  const containsAdmin = roles.some((role: { name: string; }) => role.name === "ADMIN");
   const open = Boolean(anchorEl);
+  
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -22,9 +27,8 @@ export function DashboardButtonLayout() {
   return (
     <>
       {
-        // TODO ajouter condition que l'utilisateur doit être admin
-        location.pathname.includes("/portfolio") &&
         localStorage.getItem("token") !== null &&
+        containsAdmin &&
         <>
         <Button
         id="basic-button"

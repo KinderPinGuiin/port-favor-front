@@ -12,6 +12,12 @@ export function UserButtonLayout() {
   const [anchorElLogin, setAnchorElLogin] = React.useState<null | HTMLElement>(null);
   const openLogout = Boolean(anchorElLogout);
   const openLogin = Boolean(anchorElLogin);
+  const rolesJson = localStorage.getItem("roles");
+  let roles = [];
+  if (rolesJson) {
+   roles = JSON.parse(rolesJson);
+  }
+  const containsAdmin = roles.some((role: { name: string; }) => role.name === "ADMIN");
 
   const handleClickLogout = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -65,6 +71,7 @@ export function UserButtonLayout() {
         </Link>
         </MenuItem>
         <MenuItem>
+        { containsAdmin &&
         <Link 
           to={"user/modify"} 
           style={{
@@ -73,6 +80,7 @@ export function UserButtonLayout() {
           }}>
           Modifier le profil
         </Link>
+        }
         </MenuItem>
       </Menu>
       </>
@@ -107,7 +115,7 @@ export function UserButtonLayout() {
             color: theme.palette.primary.light,
             textDecoration: "none",
           }}>
-          S'authentifier
+          Se connecter
         </Link>
         </MenuItem>
       </Menu>

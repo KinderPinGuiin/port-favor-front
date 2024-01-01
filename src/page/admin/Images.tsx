@@ -161,10 +161,16 @@ export default function Images() {
     reset: resetCreationData,
   } = useApiMutation(APIEndpoint.CREATE_IMAGE, null, false, {
     invalidateQueries: [JSON.stringify(searchModel)],
+    formData: true,
   });
   const createImage = (image: CreateImageRequestDTO) => {
     const { name, description, isPublic, imageData } = image;
-    mutateCreation({ name, description, isPublic, imageData });
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("isPublic", isPublic.valueOf().toString());
+    formData.append("imageData", imageData);
+    mutateCreation(formData);
     setOpenImageCreate(false);
   };
   if (isCreationError) {
@@ -175,7 +181,6 @@ export default function Images() {
     refetch();
   }
 
-  // TODO regarder pour update
   // Image update handling
   const [openImageUpdate, setOpenImageUpdate] = useState(false);
   const { snackbar: updateErrorSnackbar, show: showUpdateError } = useSnackbar(

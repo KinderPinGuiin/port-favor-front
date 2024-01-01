@@ -12,6 +12,6 @@ export default class CreateImageRequestDTO {
       public readonly name: string,
       public readonly description: string,
       public readonly isPublic: boolean,
-      public readonly imageData: unknown,
+      public readonly imageData: string,
     ) {}
   }

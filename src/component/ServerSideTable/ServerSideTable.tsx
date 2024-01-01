@@ -111,7 +111,7 @@ const ServerSideTable = ({
 
   return (
     <DataGrid
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", marginBottom: "100px" }}
       rows={rows}
       editMode="row"
       columns={columns}
