@@ -37,6 +37,7 @@ export default function Login() {
      localStorage.setItem("token", data.token);
      localStorage.setItem("email", data.email);
      localStorage.setItem("roles", JSON.stringify(data.roles));
+     window.dispatchEvent(new Event('storage'));
      navigate("/");
    } else if (isError && apiError) {
      setErrorMessage(apiError.message || 'Une erreur inconnue est survenue');

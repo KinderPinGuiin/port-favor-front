@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material";
  */
 export function PortfolioButtonLayout() {
   const theme = useTheme();
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button, Menu, MenuItem, useTheme } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 /**
  * Layout adding a logout button when the route isn't "/" and "user/authentication" and the user is logged in,
@@ -12,12 +12,22 @@ export function UserButtonLayout() {
   const [anchorElLogin, setAnchorElLogin] = React.useState<null | HTMLElement>(null);
   const openLogout = Boolean(anchorElLogout);
   const openLogin = Boolean(anchorElLogin);
-  const rolesJson = localStorage.getItem("roles");
-  let roles = [];
-  if (rolesJson) {
-   roles = JSON.parse(rolesJson);
-  }
-  const containsAdmin = roles.some((role: { name: string; }) => role.name === "ADMIN");
+
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(Boolean(localStorage.getItem("token")));
+  const [roles, setRoles] = useState<{ name: string }[]>([]);
+
+  useEffect(() => {
+    window.addEventListener('storage', () => {
+      setIsLoggedIn(Boolean(localStorage.getItem("token")));
+      const rolesJson = localStorage.getItem("roles");
+      if (rolesJson) {
+        setRoles(JSON.parse(rolesJson));
+      }
+    });
+  }, []);
+
+  const containsAdmin = roles.some((role) => role.name === "ADMIN");
+  const containsPrivateUer = roles.some((role) => role.name === "PRIVATE_USER");
 
   const handleClickLogout = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -38,7 +48,7 @@ export function UserButtonLayout() {
   return (
     <>
       {
-        localStorage.getItem("token") !== null &&
+        isLoggedIn &&
         <>
         <Button
         id="basic-button"
@@ -71,7 +81,7 @@ export function UserButtonLayout() {
         </Link>
         </MenuItem>
         <MenuItem>
-        { containsAdmin &&
+        { (containsAdmin || containsPrivateUer) &&
         <Link 
           to={"user/modify"} 
           style={{
@@ -86,7 +96,7 @@ export function UserButtonLayout() {
       </>
       }
       {
-        localStorage.getItem("token") == null &&
+        !isLoggedIn &&
         <>
         <Button
         id="basic-button"

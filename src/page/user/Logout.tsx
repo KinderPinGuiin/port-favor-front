@@ -6,6 +6,7 @@ export default function Logout() {
     
     useEffect(() => {
         localStorage.clear();
+        window.dispatchEvent(new Event('storage'));
         navigate("/");
     }, []);
 
