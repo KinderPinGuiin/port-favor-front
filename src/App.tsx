@@ -11,7 +11,8 @@ import Portfolio from "@page/portfolio/Portfolio";
 import Users from "@page/admin/Users";
 import Images from "@page/admin/Images";
 import MustBeLoggedInRoute from "@component/MustBeLoggedInRoute/MustBeLoggedInRoute";
-import MustBeAdminRoute from "@component/MustBeAdminRoute.tsx/MustBeAdminRoute";
+import MustBeAdminRoute from "@component/MustBeAdminRoute/MustBeAdminRoute";
+import MustBeAdminOrPrivateUserRoute from "@component/MustBeAdminOrPrivateUserRoute/MustBeAdminOrPrivateUserRoute";
 
 function App() {
   // Defining all the application routes
@@ -50,7 +51,7 @@ function App() {
           ]
         },
         {
-          element: <MustBeAdminRoute />,
+          element: <MustBeAdminOrPrivateUserRoute />,
           children: [
             {
               path: "/user/modify",
