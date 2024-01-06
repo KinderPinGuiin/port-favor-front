@@ -12,22 +12,28 @@ export function UserButtonLayout() {
   const [anchorElLogin, setAnchorElLogin] = React.useState<null | HTMLElement>(null);
   const openLogout = Boolean(anchorElLogout);
   const openLogin = Boolean(anchorElLogin);
-
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(Boolean(localStorage.getItem("token")));
-  const [roles, setRoles] = useState<{ name: string }[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.getItem("token")));
+  const [roles, setRoles] = useState<{ name: string }[]>(JSON.parse(localStorage.getItem("roles") || "[]"));
+  const [containsAdmin, setContainsAdmin] = useState(roles.some((role) => role.name === "ADMIN"));
+  const [containsPrivateUser, setContainsPrivateUser] = useState(roles.some((role) => role.name === "PRIVATE_USER"));
 
   useEffect(() => {
-    window.addEventListener('storage', () => {
-      setIsLoggedIn(Boolean(localStorage.getItem("token")));
+    const updateLocalStorageData = () => {
+      const token = Boolean(localStorage.getItem("token"));
+      setIsLoggedIn(token);
       const rolesJson = localStorage.getItem("roles");
       if (rolesJson) {
-        setRoles(JSON.parse(rolesJson));
+        const newRoles = JSON.parse(rolesJson);
+        setRoles(newRoles);
+        setContainsAdmin(newRoles.some((role: { name: string; }) => role.name === "ADMIN"));
+        setContainsPrivateUser(newRoles.some((role: { name: string; }) => role.name === "PRIVATE_USER"));
       }
-    });
+    };
+    window.addEventListener('storage', updateLocalStorageData);
+    return () => {
+      window.removeEventListener('storage', updateLocalStorageData);
+    };
   }, []);
-
-  const containsAdmin = roles.some((role) => role.name === "ADMIN");
-  const containsPrivateUer = roles.some((role) => role.name === "PRIVATE_USER");
 
   const handleClickLogout = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElLogout(event.currentTarget);
@@ -81,7 +87,7 @@ export function UserButtonLayout() {
         </Link>
         </MenuItem>
         <MenuItem>
-        { (containsAdmin || containsPrivateUer) &&
+        { (containsAdmin || containsPrivateUser) &&
         <Link 
           to={"user/modify"} 
           style={{

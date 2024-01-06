@@ -9,20 +9,27 @@ import React, { useEffect, useState } from "react";
 export function DashboardButtonLayout() {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(Boolean(localStorage.getItem("token")));
-  const [roles, setRoles] = useState<{ name: string }[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.getItem("token")));
+  const [roles, setRoles] = useState<{ name: string }[]>(JSON.parse(localStorage.getItem("roles") || "[]"));
+  const [containsAdmin, setContainsAdmin] = useState(roles.some((role) => role.name === "ADMIN"));
 
   useEffect(() => {
-    window.addEventListener('storage', () => {
-      setIsLoggedIn(Boolean(localStorage.getItem("token")));
+    const updateLocalStorageData = () => {
+      const token = Boolean(localStorage.getItem("token"));
+      setIsLoggedIn(token);
       const rolesJson = localStorage.getItem("roles");
       if (rolesJson) {
-        setRoles(JSON.parse(rolesJson));
+        const newRoles = JSON.parse(rolesJson);
+        setRoles(newRoles);
+        setContainsAdmin(newRoles.some((role: { name: string; }) => role.name === "ADMIN"));
       }
-    });
+    };
+    window.addEventListener('storage', updateLocalStorageData);
+    return () => {
+      window.removeEventListener('storage', updateLocalStorageData);
+    };
   }, []);
 
-  const containsAdmin = roles.some((role) => role.name === "ADMIN");
   const open = Boolean(anchorEl);
   
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
