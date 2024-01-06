@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Menu, MenuItem, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
  */
 export function DashboardButtonLayout() {
   const theme = useTheme();
+  const navigate = useNavigate();
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.getItem("token")));
@@ -69,25 +70,11 @@ export function DashboardButtonLayout() {
               'aria-labelledby': 'basic-button',
             }}
           >
-            <MenuItem>
-            <Link 
-              to={"admin/users"} 
-              style={{
-                color: theme.palette.primary.light,
-                textDecoration: "none",
-              }}>
+            <MenuItem onClick={() => navigate("/admin/users")}>
               Gérer les utilisateurs
-            </Link>
             </MenuItem>
-            <MenuItem>
-            <Link 
-              to={"admin/images"} 
-              style={{
-                color: theme.palette.primary.light,
-                textDecoration: "none",
-              }}>
+            <MenuItem onClick={() => navigate("/admin/images")}>
               Gérer les images
-            </Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
               Fermer

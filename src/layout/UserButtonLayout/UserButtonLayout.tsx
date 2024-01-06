@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Menu, MenuItem, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
  */
 export function UserButtonLayout() {
   const theme = useTheme();
+  const navigate = useNavigate();
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -73,27 +74,13 @@ export function UserButtonLayout() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem>
         { (containsAdmin || containsPrivateUser) &&
-        <Link 
-          to={"user/modify"} 
-          style={{
-            color: theme.palette.primary.light,
-            textDecoration: "none",
-          }}>
+        <MenuItem  onClick={() => navigate("/user/modify")}>
           Modifier le profil
-        </Link>
-        }
         </MenuItem>
-        <MenuItem>
-        <Link 
-          to={"user/logout"} 
-          style={{
-            color: theme.palette.primary.light,
-            textDecoration: "none",
-          }}>
+        }
+        <MenuItem onClick={() => navigate("/user/logout")}>
           Déconnecter
-        </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           Fermer
@@ -126,15 +113,8 @@ export function UserButtonLayout() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem>
-        <Link 
-          to={"user/authentication"} 
-          style={{
-            color: theme.palette.primary.light,
-            textDecoration: "none",
-          }}>
+        <MenuItem onClick={() => navigate("/user/authentication")}>
           Se connecter
-        </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           Fermer
