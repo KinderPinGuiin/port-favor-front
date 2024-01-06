@@ -77,6 +77,10 @@ export default function Users() {
         // Obtenez la valeur des rôles de la ligne
         const roles: RoleDTO[] = params.row.roles;
         
+        if (!roles || !Array.isArray(roles)) {
+          return '';
+        }
+
         // Transformez les rôles en texte (ou toute autre représentation souhaitée)
         const rolesText = roles.map(role => role.name).join(', ');
   
