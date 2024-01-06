@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Menu, MenuItem, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
  */
 export function DashboardButtonLayout() {
   const theme = useTheme();
+  const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.getItem("token")));
   const [roles, setRoles] = useState<{ name: string }[]>(JSON.parse(localStorage.getItem("roles") || "[]"));
@@ -38,6 +39,10 @@ export function DashboardButtonLayout() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    setAnchorEl(null);
+   }, [location]);
 
   return (
     <>
@@ -83,6 +88,9 @@ export function DashboardButtonLayout() {
               }}>
               Gérer les images
             </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              Fermer
             </MenuItem>
           </Menu>
       </>
