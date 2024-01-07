@@ -34,7 +34,7 @@ export default function CreateImageForm({ onSubmit }: CreateImageFormProps) {
       <FormGroup>
         <h2>Créer une image</h2>
         <TextField label="Nom" variant="outlined" inputRef={nameRef} style={{ marginBottom: "10px"}}/>
-        <TextField label="Description" variant="outlined" inputRef={descriptionRef}/>
+        <TextField label="Description" variant="outlined" inputRef={descriptionRef} multiline maxRows={4}/>
         <FormControlLabel control={<Checkbox inputRef={isPublicRef} />} label="Publique ?" />
         <Button style={{ marginBottom: "10px"}}
           variant="outlined"

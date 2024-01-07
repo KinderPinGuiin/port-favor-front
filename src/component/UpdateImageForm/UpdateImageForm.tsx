@@ -33,8 +33,8 @@ export default function UpdateImageForm({
         <TextField label="Nom" variant="outlined" inputRef={nameRef}
         defaultValue={currentImage.name}  style={{ marginBottom: "10px"}}/>
         <TextField label="Description" variant="outlined" inputRef={descriptionRef} 
-        defaultValue={currentImage.name} />
-        <FormControlLabel control={<Checkbox inputRef={isPublicRef} />} label="Publique ?" />
+        defaultValue={currentImage.description} multiline maxRows={4}/>
+        <FormControlLabel control={<Checkbox inputRef={isPublicRef} defaultChecked={currentImage.pub}/>} label="Publique ?"/>
         <Button 
           variant="contained"
           type="submit" 

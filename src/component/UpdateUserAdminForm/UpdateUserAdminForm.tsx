@@ -17,6 +17,7 @@ export default function UpdateUserAdminForm({
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const isAdminRef = useRef<HTMLInputElement | null>(null);
   const isPrivateRef = useRef<HTMLInputElement | null>(null);
+  const roleNames = currentUser.roles.map(role => role.name);
 
   const handleSubmit = () => {
     const passwordValue = passwordRef.current?.value;
@@ -49,8 +50,10 @@ export default function UpdateUserAdminForm({
         <TextField label="Adresse mail" variant="outlined" inputRef={emailRef}
         defaultValue={currentUser.email}  style={{ marginBottom: "10px"}}/>
         <TextField type="password" label="Mot de passe" variant="outlined" inputRef={passwordRef} />
-        <FormControlLabel control={<Checkbox inputRef={isAdminRef} />} label="Administrateur ?" />
-        <FormControlLabel control={<Checkbox inputRef={isPrivateRef} />} label="Accès privé ?" />
+        <FormControlLabel control={<Checkbox inputRef={isAdminRef} 
+          defaultChecked={roleNames.includes("ADMIN")}/>} label="Administrateur ?" />
+        <FormControlLabel control={<Checkbox inputRef={isPrivateRef} 
+          defaultChecked={roleNames.includes("PRIVATE_USER")}/>} label="Accès privé ?" />
         <Button 
           variant="contained"
           type="submit" 

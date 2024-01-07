@@ -53,7 +53,11 @@ export default function ImageCard({ image }: ImageCardProps) {
             <Typography variant="subtitle1" component="div" color="text.secondary" style={{ paddingBottom: "10px"}}>
               {description || defaultDescription}
             </Typography>
-            <IconButton aria-label="Télécharger l'image" sx={{ color: theme.palette.primary.light }}>
+            <IconButton aria-label="Télécharger l'image" sx={{ 
+              color: theme.palette.primary.light,
+              position: "absolute",
+              bottom: 5,
+              right: 5 }}>
             <DownloadIcon onClick={handleDownload}/>
             </IconButton>
           </CardContent>
