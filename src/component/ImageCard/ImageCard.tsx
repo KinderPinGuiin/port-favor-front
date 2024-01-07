@@ -14,8 +14,6 @@ export type ImageCardProps = {
 export default function ImageCard({ image }: ImageCardProps) {
   const theme = useTheme();
   const { path, name, description, pub } = image;
-  const defaultName = "Nom de l'image";
-  const defaultDescription = "Description de l'image";
   const token = localStorage.getItem("token");
   const url = APIEndpoint.GET_IMAGE_CONTENT.toApiUrl().replace("{name}", path) + (token != null ? "?token=" + token : "")
 
@@ -37,7 +35,7 @@ export default function ImageCard({ image }: ImageCardProps) {
           <CardMedia
             component="img"
             image={url}
-            alt={name || defaultName}
+            alt={name}
             style={{
                 width: '100%',
                 height: '100%',
@@ -48,12 +46,12 @@ export default function ImageCard({ image }: ImageCardProps) {
         <Grid item xs={4} overflow="auto">
           <CardContent>
             <Typography variant="h5" component="div" style={{ marginBottom: "20px", overflow: "auto" }}>
-              {name || defaultName}
+              {name}
             </Typography>
             <Typography variant="subtitle1" component="div" color="text.secondary" style={{ 
                 paddingBottom: "10px", overflow: "auto"
               }}>
-              {description || defaultDescription}
+              {description}
             </Typography>
             <Typography variant="subtitle2" component="div" color="text.secondary" style={{ 
               position: "absolute", bottom: "15px", right: "45px", color: theme.palette.primary.light }}>

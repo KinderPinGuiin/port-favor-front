@@ -10,15 +10,17 @@ import { SyntheticEvent, useCallback, useRef, useState } from "react";
 import { useEffect } from 'react';
 import { Snackbar } from '@mui/material';
 import RegistrationRequestDTO from "@api/dto/request/authentication/RegistrationRequestDTO";
+import { useRandomImage } from "@hook/image/useRandomImage";
 
 export default function Login() {
- const navigate = useNavigate();
- const [errorMessage, setErrorMessage] = useState("");
- const emailRef = useRef<HTMLInputElement | null>(null);
- const passwordRef = useRef<HTMLInputElement | null>(null);
- const [formMode, setFormMode] = useState<'login' | 'register'>('login');
- const { mutate, data: data, isLoading: isLoading, isError: isError, error: apiError } =
-   useApiMutation(formMode === 'login' ? APIEndpoint.LOGIN : APIEndpoint.REGISTER, null, false);
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [formMode, setFormMode] = useState<'login' | 'register'>('login');
+  const { mutate, data: data, isLoading: isLoading, isError: isError, error: apiError } =
+    useApiMutation(formMode === 'login' ? APIEndpoint.LOGIN : APIEndpoint.REGISTER, null, false);
+  const backgroundImage = useRandomImage();
 
  const sendRequest = useCallback((e: SyntheticEvent) => {
    e.preventDefault();
@@ -68,7 +70,7 @@ export default function Login() {
          </Button>
        </FormContainer>
      </CenterDiv>
-     <SplashBackground src="https://picsum.photos/600" alt="Random test picture" />
+      <SplashBackground src={backgroundImage.src} alt={backgroundImage.alt}/>
    </>
  )
 }

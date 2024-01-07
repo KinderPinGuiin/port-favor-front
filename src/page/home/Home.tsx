@@ -3,6 +3,10 @@ import { Box, Button, styled } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material";
+import ImageResponseDTO from "@api/dto/response/image/ImageResponseDTO";
+import APIEndpoint from "@api/endpoint/APIEndpoint";
+import useApi from "@hook/api/useApi";
+import { useRandomImage } from "@hook/image/useRandomImage";
 
 /**
  * Home component containing the home of the application.
@@ -10,6 +14,7 @@ import { useTheme } from "@mui/material";
 export default function Home() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const backgroundImage = useRandomImage();
 
   useEffect(() => {
     setIsLoggedIn(Boolean(localStorage.getItem('token')));
@@ -43,8 +48,7 @@ export default function Home() {
           </Button>
         </Box>
       </TitleContainer>
-      <SplashBackground src="https://picsum.photos/600" alt="Random test picture" />
-      
+      <SplashBackground src={backgroundImage.src} alt={backgroundImage.alt}/>
     </HomeWrapper>
   );
 }

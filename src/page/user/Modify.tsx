@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { Snackbar } from '@mui/material';
 import UpdateUserRequestDTO from "@api/dto/request/user/UpdateUserRequestDTO";
 import UpdateUserPasswordRequestDTO from "@api/dto/request/user/UpdateUserPasswordRequestDTO";
+import { useRandomImage } from "@hook/image/useRandomImage";
 
 export default function Modify() {
  const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Modify() {
  const [formMode, setFormMode] = useState<'email' | 'password'>("email");
  const { mutate, data: data, isLoading: isLoading, isError: isError, error: apiError } =
   useApiMutation(formMode === 'email' ? APIEndpoint.UPDATE_USER_EMAIL : APIEndpoint.UPDATE_USER_PASSWORD, null, false);
+  const backgroundImage = useRandomImage();
 
   const updateEmail = useCallback((e: SyntheticEvent) => {
     e.preventDefault();
@@ -93,8 +95,8 @@ export default function Modify() {
         </Button>
        </FormContainer>
      )}
-     </CenterDiv>
-     <SplashBackground src="https://picsum.photos/600" alt="Random test picture" />
+    </CenterDiv>
+    <SplashBackground src={backgroundImage.src} alt={backgroundImage.alt}/>
    </>
  )
 }
