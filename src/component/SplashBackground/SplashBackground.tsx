@@ -17,9 +17,15 @@ export type SplashBackgroundProps = {
 }
 
 export default function SplashBackground({ src, alt }: SplashBackgroundProps) {
+  const isImageAvailable = !!src;
+
     return (
       <SplashBackgroundContainer>
-        <IllustrationImage src={ src } alt={ alt ?? "Undocumented image" } draggable="false" />
+        {isImageAvailable ? (
+        <IllustrationImage src={src} alt={alt} draggable="false" />
+        ) : (
+          <></>
+        )}
       </SplashBackgroundContainer>
     )
 }
