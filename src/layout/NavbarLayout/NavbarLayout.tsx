@@ -12,7 +12,7 @@ export default function NavbarLayout() {
   return (
     <>
       {
-        <Stack direction="row" spacing={1} justifyContent="center" alignItems="center" sx={{
+        <Stack direction="row" spacing={1} justifyContent="center" sx={{
           position: "fixed", 
           bottom: 3,
           height: "50px",

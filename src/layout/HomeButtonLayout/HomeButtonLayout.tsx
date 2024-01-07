@@ -14,10 +14,12 @@ export function HomeButtonLayout() {
     <>
       {
         location.pathname !== "/" &&
-        <Link 
+        <Link
           to={"/"} 
           style={{
-            color: theme.palette.primary.light
+            color: theme.palette.primary.light,
+            display: 'flex',
+            alignItems: 'center',
           }}>
             <HomeIcon style={{ fontSize: "2rem", cursor: "pointer" }} />
         </Link>

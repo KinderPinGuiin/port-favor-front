@@ -17,7 +17,9 @@ export function PortfolioButtonLayout() {
         <Link 
           to={"/portfolio"} 
           style={{
-            color: theme.palette.primary.light
+            color: theme.palette.primary.light,
+            display: 'flex',
+            alignItems: 'center',
           }}>
             <InsertPhotoIcon style={{ fontSize: "2rem", cursor: "pointer" }} />
         </Link>
