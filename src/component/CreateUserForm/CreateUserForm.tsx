@@ -39,7 +39,7 @@ export default function CreateUserForm({ onSubmit }: CreateUserFormProps) {
     <>
       <FormGroup sx={{ width: "90%" }}>
         <h2>Créer un utilisateur</h2>
-        <TextField label="Adresse mail" variant="outlined" inputRef={emailRef} style={{ marginBottom: "10px"}}/>
+        <TextField label="Adresse mail" variant="outlined" inputRef={emailRef} style={{ marginBottom: "20px"}}/>
         <TextField type="password" label="Mot de passe" variant="outlined" inputRef={passwordRef}/>
         <Grid container>
           <Grid item xs={6}>

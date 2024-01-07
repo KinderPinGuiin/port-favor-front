@@ -38,7 +38,7 @@ export default function CreateImageForm({ onSubmit }: CreateImageFormProps) {
     <>
       <FormGroup sx={{ width: "90%" }}>
         <h2>Créer une image</h2>
-        <TextField label="Nom" variant="outlined" inputRef={nameRef} style={{ marginBottom: "10px"}}/>
+        <TextField label="Nom" variant="outlined" inputRef={nameRef} style={{ marginBottom: "20px"}}/>
         <TextField label="Description" variant="outlined" inputRef={descriptionRef} multiline maxRows={4}/>
         <FormControlLabel style={{
           marginLeft: "auto",

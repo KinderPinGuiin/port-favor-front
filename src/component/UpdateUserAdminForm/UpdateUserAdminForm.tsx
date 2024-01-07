@@ -48,7 +48,7 @@ export default function UpdateUserAdminForm({
       <FormGroup sx={{ width: "90%" }}>
         <h2>Editer un utilisateur</h2>
         <TextField label="Adresse mail" variant="outlined" inputRef={emailRef}
-        defaultValue={currentUser.email}  style={{ marginBottom: "10px"}}/>
+        defaultValue={currentUser.email}  style={{ marginBottom: "20px"}}/>
         <TextField type="password" label="Mot de passe" variant="outlined" inputRef={passwordRef} />
         <Grid container>
           <Grid item xs={6}>

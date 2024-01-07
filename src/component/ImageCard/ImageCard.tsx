@@ -13,7 +13,7 @@ export type ImageCardProps = {
 
 export default function ImageCard({ image }: ImageCardProps) {
   const theme = useTheme();
-  const { path, name, description } = image;
+  const { path, name, description, pub } = image;
   const defaultName = "Nom de l'image";
   const defaultDescription = "Description de l'image";
   const token = localStorage.getItem("token");
@@ -47,17 +47,23 @@ export default function ImageCard({ image }: ImageCardProps) {
         </Grid>
         <Grid item xs={4} overflow="auto">
           <CardContent>
-            <Typography variant="h5" component="div" style={{ paddingBottom: "10px" }}>
+            <Typography variant="h5" component="div" style={{ marginBottom: "20px", overflow: "auto" }}>
               {name || defaultName}
             </Typography>
-            <Typography variant="subtitle1" component="div" color="text.secondary" style={{ paddingBottom: "10px"}}>
+            <Typography variant="subtitle1" component="div" color="text.secondary" style={{ 
+                paddingBottom: "10px", overflow: "auto"
+              }}>
               {description || defaultDescription}
+            </Typography>
+            <Typography variant="subtitle2" component="div" color="text.secondary" style={{ 
+              position: "absolute", bottom: "15px", right: "45px", color: theme.palette.primary.light }}>
+              {pub ? "Publique" : "Privée"}
             </Typography>
             <IconButton aria-label="Télécharger l'image" sx={{ 
               color: theme.palette.primary.light,
               position: "absolute",
-              bottom: 5,
-              right: 5 }}>
+              bottom: "5px",
+              right: "5px", paddingTop: "10px",}}>
             <DownloadIcon onClick={handleDownload}/>
             </IconButton>
           </CardContent>

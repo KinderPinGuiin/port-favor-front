@@ -31,7 +31,7 @@ export default function UpdateImageForm({
       <FormGroup sx={{ width: "90%" }}>
         <h2>Editer une image</h2>
         <TextField label="Nom" variant="outlined" inputRef={nameRef}
-        defaultValue={currentImage.name}  style={{ marginBottom: "10px"}}/>
+        defaultValue={currentImage.name}  style={{ marginBottom: "20px"}}/>
         <TextField label="Description" variant="outlined" inputRef={descriptionRef} 
         defaultValue={currentImage.description} multiline maxRows={4}/>
         <FormControlLabel style={{

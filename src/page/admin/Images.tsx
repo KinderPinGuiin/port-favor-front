@@ -17,11 +17,13 @@ import CenteredModal from "@component/CenteredModal/CenteredModal";
 import useApiMutation from "@hook/api/useApiMutation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import PreviewIcon from '@mui/icons-material/Preview';
 import ImageResponseDTO from "@api/dto/response/image/ImageResponseDTO";
 import CreateImageForm from "@component/CreateImageForm/CreateImageForm";
 import UpdateImageForm from "@component/UpdateImageForm/UpdateImageForm";
 import UpdateImageRequestDTO from "@api/dto/request/image/UpdateImageRequestDTO";
 import CreateImageRequestDTO from "@api/dto/request/image/CreateImageRequestDTO";
+import ImageCard from "@component/ImageCard/ImageCard";
 
 type ImageSearchModel = {
   page: number;
@@ -96,6 +98,14 @@ export default function Images() {
       sortable: false,
       filterable: false,
       getActions: (params) => [
+        <GridActionsCellItem
+          icon={<PreviewIcon />}
+          label="Preview"
+          onClick={() => {
+            setSelectedImage({ id: params.id as number, ...params.row });
+            setOpenImagePreview(true);
+          }}
+        />,
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Modifier"
@@ -180,6 +190,9 @@ export default function Images() {
     refetch();
   }
 
+  // Image preview handling
+  const [openImagePreview, setOpenImagePreview] = useState(false);
+
   // Image update handling
   const [openImageUpdate, setOpenImageUpdate] = useState(false);
   const { snackbar: updateErrorSnackbar, show: showUpdateError } = useSnackbar(
@@ -260,13 +273,19 @@ export default function Images() {
           onChange={onSearchModelChange}
         />
       </CenterDiv>
-      {/* Creation modal */}
+      {/* Creation image modal */}
       <CenteredModal
         open={openImageCreate}
         handleClose={() => setOpenImageCreate(false)}
         sx={{ padding: "0 10px 10px 10px", width: "clamp(200px, 50%, 500px)" }}
       >
         <CreateImageForm onSubmit={createImage} />
+      </CenteredModal>
+      {/* Preview image modal */}
+      <CenteredModal 
+        open={openImagePreview} 
+        handleClose={() => setOpenImagePreview(false)} sx={{}}>
+        {selectedImage && <ImageCard image={selectedImage} />}
       </CenteredModal>
       {/* Edit image modal */}
       <CenteredModal
