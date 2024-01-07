@@ -28,17 +28,21 @@ export default function UpdateImageForm({
 
   return (
     <>
-      <FormGroup>
+      <FormGroup sx={{ width: "90%" }}>
         <h2>Editer une image</h2>
         <TextField label="Nom" variant="outlined" inputRef={nameRef}
         defaultValue={currentImage.name}  style={{ marginBottom: "10px"}}/>
         <TextField label="Description" variant="outlined" inputRef={descriptionRef} 
         defaultValue={currentImage.description} multiline maxRows={4}/>
-        <FormControlLabel control={<Checkbox inputRef={isPublicRef} defaultChecked={currentImage.pub}/>} label="Publique ?"/>
+        <FormControlLabel style={{
+          marginLeft: "auto",
+          marginRight: "auto"
+        }} control={<Checkbox inputRef={isPublicRef} defaultChecked={currentImage.pub}/>} label="Publique ?"/>
         <Button 
           variant="contained"
           type="submit" 
           onClick={handleSubmit}
+          style={{ marginBottom: "10px"}}
         >
           Editer
         </Button>

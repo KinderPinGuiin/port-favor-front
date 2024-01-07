@@ -1,6 +1,6 @@
 import UpdateUserAdminRequestDTO from "@api/dto/request/user/UpdateUserAdminRequestDTO";
 import UserResponseDTO from "@api/dto/response/user/UserResponseDTO";
-import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, FormGroup, Grid, TextField } from "@mui/material";
 import { useRef } from "react";
 
 export type UpdateUserAdminFormProps = {
@@ -45,19 +45,30 @@ export default function UpdateUserAdminForm({
 
   return (
     <>
-      <FormGroup>
+      <FormGroup sx={{ width: "90%" }}>
         <h2>Editer un utilisateur</h2>
         <TextField label="Adresse mail" variant="outlined" inputRef={emailRef}
         defaultValue={currentUser.email}  style={{ marginBottom: "10px"}}/>
         <TextField type="password" label="Mot de passe" variant="outlined" inputRef={passwordRef} />
-        <FormControlLabel control={<Checkbox inputRef={isAdminRef} 
-          defaultChecked={roleNames.includes("ADMIN")}/>} label="Administrateur ?" />
-        <FormControlLabel control={<Checkbox inputRef={isPrivateRef} 
-          defaultChecked={roleNames.includes("PRIVATE_USER")}/>} label="Accès privé ?" />
+        <Grid container>
+          <Grid item xs={6}>
+            <FormControlLabel style={{
+              marginLeft: "left"
+            }} control={<Checkbox inputRef={isAdminRef} 
+              defaultChecked={roleNames.includes("ADMIN")}/>} label="Administrateur ?" />
+          </Grid>
+          <Grid item xs={6}>
+            <FormControlLabel style={{
+              marginRight: "right"
+            }} control={<Checkbox inputRef={isPrivateRef} 
+              defaultChecked={roleNames.includes("PRIVATE_USER")}/>} label="Accès privé ?" />
+          </Grid>
+        </Grid>
         <Button 
           variant="contained"
           type="submit" 
           onClick={handleSubmit}
+          style={{ marginBottom: "10px"}}
         >
           Editer
         </Button>

@@ -1,4 +1,4 @@
-import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from "@mui/material"
+import { Button, Checkbox, FormControlLabel, FormGroup, Grid, TextField } from "@mui/material"
 import { useRef } from "react";
 
 export type CreateUserFormProps = {
@@ -37,16 +37,27 @@ export default function CreateUserForm({ onSubmit }: CreateUserFormProps) {
   
   return (
     <>
-      <FormGroup>
+      <FormGroup sx={{ width: "90%" }}>
         <h2>Créer un utilisateur</h2>
         <TextField label="Adresse mail" variant="outlined" inputRef={emailRef} style={{ marginBottom: "10px"}}/>
         <TextField type="password" label="Mot de passe" variant="outlined" inputRef={passwordRef}/>
-        <FormControlLabel control={<Checkbox inputRef={isAdminRef} />} label="Administrateur ?" />
-        <FormControlLabel control={<Checkbox inputRef={isPrivateRef} />} label="Accès privé ?" />
+        <Grid container>
+          <Grid item xs={6}>
+            <FormControlLabel style={{
+              marginLeft: "left",
+            }} control={<Checkbox inputRef={isAdminRef} />} label="Administrateur ?" />
+          </Grid>
+          <Grid item xs={6}>
+            <FormControlLabel style={{
+              marginRight: "right"
+            }} control={<Checkbox inputRef={isPrivateRef} />} label="Accès privé ?" />
+          </Grid>
+        </Grid>
         <Button 
           variant="contained"
           type="submit" 
           onClick={handleSubmit}
+          style={{ marginBottom: "10px"}}
         >
           Créer
         </Button>
